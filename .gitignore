@@ -11,4 +11,5 @@ validation_params.csv
 *-actual.json
 *-expected.json
 results-*/
+redisgraph/results/**
 *.DS_Store

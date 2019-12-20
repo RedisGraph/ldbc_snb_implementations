@@ -1,7 +1,7 @@
 package redisgraph;
 
-import com.ldbc.impls.workloads.ldbc.snb.redisgraph.interactive.RedisGraphCypherInteractiveDb;
 import com.ldbc.impls.workloads.ldbc.snb.interactive.InteractiveTest;
+import com.ldbc.impls.workloads.ldbc.snb.redisgraph.interactive.RedisGraphCypherInteractiveDb;
 import org.junit.Ignore;
 
 import java.util.HashMap;

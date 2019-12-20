@@ -2,37 +2,7 @@ package com.ldbc.impls.workloads.ldbc.snb.redisgraph;
 
 import com.ldbc.driver.DbException;
 import com.ldbc.driver.control.LoggingService;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery1;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery1Result;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery1PersonProfile;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery1PersonProfileResult;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery1;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery10;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery11;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery12;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery2;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery3;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery4;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery5;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery6;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery7;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery8;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery9;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery1PersonProfile;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery2PersonPosts;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery3PersonFriends;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery4MessageContent;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery5MessageCreator;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery6MessageForum;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery7MessageReplies;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate1AddPerson;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate2AddPostLike;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate3AddCommentLike;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate4AddForum;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate5AddForumMembership;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate6AddPost;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate7AddComment;
-import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcUpdate8AddFriendship;
+import com.ldbc.driver.workloads.ldbc.snb.interactive.*;
 import com.ldbc.impls.workloads.ldbc.snb.db.BaseDb;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.CypherListOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.CypherSingletonOperationHandler;
@@ -123,6 +93,22 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
                     universities,
                     companies);
         }
+    }
+
+    public static class InteractiveQuery4 extends CypherListOperationHandler<LdbcQuery4, LdbcQuery4Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery4 operation) {
+            return state.getQueryStore().getQuery4(operation);
+        }
+
+        @Override
+        public LdbcQuery4Result convertSingleResult(Record record) {
+            String tagName = record.getString(0);
+            int postCount = Integer.parseInt(record.getString(1));
+            return new LdbcQuery4Result(tagName, postCount);
+        }
+
     }
 
 

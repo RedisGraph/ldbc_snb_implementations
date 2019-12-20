@@ -3,6 +3,7 @@ package com.ldbc.impls.workloads.ldbc.snb.redisgraph.interactive;
 import com.ldbc.driver.DbException;
 import com.ldbc.driver.control.LoggingService;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery1;
+import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcQuery4;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcShortQuery1PersonProfile;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDb;
 
@@ -17,7 +18,7 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
         registerOperationHandler(LdbcQuery1.class, InteractiveQuery1.class);
 //        registerOperationHandler(LdbcQuery2.class, InteractiveQuery2.class);
 //        registerOperationHandler(LdbcQuery3.class, InteractiveQuery3.class);
-//        registerOperationHandler(LdbcQuery4.class, InteractiveQuery4.class);
+        registerOperationHandler(LdbcQuery4.class, InteractiveQuery4.class);
 //        registerOperationHandler(LdbcQuery5.class, InteractiveQuery5.class);
 //        registerOperationHandler(LdbcQuery6.class, InteractiveQuery6.class);
 //        registerOperationHandler(LdbcQuery7.class, InteractiveQuery7.class);

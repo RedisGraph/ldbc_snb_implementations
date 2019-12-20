@@ -47,7 +47,9 @@ The CSV files require a bit of preprocessing:
 * convert date and datetime formats
 
 The following script takes care of those steps:
-
+```
+pip install git+https://github.com/RedisGraph/redisgraph-bulk-loader.git
+```
 ```bash
 ./convert-csvs.sh
 ```
