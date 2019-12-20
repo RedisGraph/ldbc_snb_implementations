@@ -1,0 +1,10 @@
+{
+  "all_metrics" : [ ],
+  "format_version" : 3,
+  "unit" : "MILLISECONDS",
+  "start_time" : -1,
+  "latest_finish_time" : -1,
+  "total_duration" : 0,
+  "total_count" : 0,
+  "throughput" : "NaN"
+}

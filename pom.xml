@@ -20,6 +20,7 @@
         <module>cypher</module>
         <module>postgres</module>
         <module>sparql</module>
+        <module>redisgraph</module>
     </modules>
 
     <build>
