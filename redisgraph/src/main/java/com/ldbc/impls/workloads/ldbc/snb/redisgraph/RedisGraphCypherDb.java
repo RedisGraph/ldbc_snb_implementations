@@ -69,11 +69,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 //                companies = new ArrayList<>();
 //            }
 //
-            long friendId = record.getValue(0);
+            long friendId = Long.parseLong(record.getString(0));
             String friendLastName = record.getValue(1);
             int distanceFromPerson = record.getValue(2);
-            long friendBirthday = record.getValue(3); //CypherConverter.convertLongDateToEpoch(record.getValue(3).asLong());
-            long friendCreationDate = record.getValue(4); //CypherConverter.convertLongTimestampToEpoch(record.getValue(4).asLong());
+            long friendBirthday = Long.parseLong(record.getString(3)); //CypherConverter.convertLongDateToEpoch(record.getValue(3).asLong());
+            long friendCreationDate = Long.parseLong(record.getString(4)); //CypherConverter.convertLongTimestampToEpoch(record.getValue(4).asLong());
             String friendGender = record.getString(5);
             String friendBrowserUsed = record.getString(6);
             String friendLocationIp = record.getString(7);
@@ -92,6 +92,57 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
                     friendCityName,
                     universities,
                     companies);
+        }
+    }
+
+    public static class InteractiveQuery2 extends CypherListOperationHandler<LdbcQuery2, LdbcQuery2Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery2 operation) {
+            return state.getQueryStore().getQuery2(operation);
+        }
+
+        @Override
+        public LdbcQuery2Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            long messageId = record.getValue(3);
+            String messageContent = record.getString(4);
+            long messageCreationDate = record.getValue(0); //CypherConverter.convertLongTimestampToEpoch(record.get(5).asLong());
+
+            return new LdbcQuery2Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    messageId,
+                    messageContent,
+                    messageCreationDate);
+        }
+    }
+
+    public static class InteractiveQuery3 extends CypherListOperationHandler<LdbcQuery3, LdbcQuery3Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery3 operation) {
+            return state.getQueryStore().getQuery3(operation);
+        }
+
+        @Override
+        public LdbcQuery3Result convertSingleResult(Record record) {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            int xCount = Integer.parseInt(record.getString(3));
+            int yCount = Integer.parseInt(record.getString(4));
+            int count = Integer.parseInt(record.getString(5));
+            return new LdbcQuery3Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    xCount,
+                    yCount,
+                    count);
         }
     }
 

@@ -1,6 +1,6 @@
-# LDBC SNB Cypher implementation
+# LDBC SNB RedisGraph Cypher implementation
 
-[(open)Cypher](http://www.opencypher.org/) implementation of the [LDBC SNB BI benchmark](https://github.com/ldbc/ldbc_snb_docs).
+RedisGraph [(open)Cypher](http://www.opencypher.org/) implementation of the [LDBC SNB BI benchmark](https://github.com/ldbc/ldbc_snb_docs).
 
 ## Starting RedisGraph
 
@@ -37,11 +37,10 @@ export REDISGRAPH_DATA_DIR=/path/do/the/csv/files
 export POSTFIX=_0_0.csv
 ```
 
-The CSV files require a bit of preprocessing:
+The CSV files require a bit of pre-processing:
 
-* replace headers with Neo4j-compatible ones
-* replace labels (e.g. change `city` to `City`)
-* convert date and datetime formats
+* replace headers with RedisGraph-compatible ones
+
 
 The following script takes care of those steps:
 ```
@@ -56,9 +55,8 @@ pip install git+https://github.com/RedisGraph/redisgraph-bulk-loader.git
 Be careful -- this deletes all data in your database, imports the SNB data set and restarts the database.
 
 ```bash
-./delete-neo4j-database.sh
-./import-to-neo4j.sh
-./restart-neo4j.sh
+./delete-redisgraph-database.sh
+./import-to-redisgraph.sh
 ```
 
 #### All-in-one loading script
