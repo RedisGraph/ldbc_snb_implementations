@@ -14,10 +14,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import org.neo4j.driver.v1.Record;
-//import org.neo4j.driver.v1.Session;
-//import org.neo4j.driver.v1.StatementResult;
-
 public abstract class CypherListOperationHandler<TOperation extends Operation<List<TOperationResult>>, TOperationResult>
         implements ListOperationHandler<TOperationResult, TOperation, RedisGraphCypherDbConnectionState> {
 

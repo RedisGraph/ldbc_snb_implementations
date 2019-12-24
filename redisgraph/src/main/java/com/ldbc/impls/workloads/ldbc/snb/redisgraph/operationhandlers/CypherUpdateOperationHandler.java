@@ -7,7 +7,6 @@ import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcNoResult;
 import com.ldbc.impls.workloads.ldbc.snb.operationhandlers.UpdateOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDbConnectionState;
 import com.redislabs.redisgraph.RedisGraphContext;
-//import org.neo4j.driver.v1.Session;
 
 public abstract class CypherUpdateOperationHandler<TOperation extends Operation<LdbcNoResult>>
         implements UpdateOperationHandler<TOperation, RedisGraphCypherDbConnectionState> {

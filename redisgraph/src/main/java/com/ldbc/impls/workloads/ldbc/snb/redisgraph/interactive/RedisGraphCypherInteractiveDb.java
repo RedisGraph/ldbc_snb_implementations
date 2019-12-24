@@ -35,15 +35,15 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
         registerOperationHandler(LdbcShortQuery5MessageCreator.class, ShortQuery5MessageCreator.class);
         registerOperationHandler(LdbcShortQuery6MessageForum.class, ShortQuery6MessageForum.class);
         registerOperationHandler(LdbcShortQuery7MessageReplies.class, ShortQuery7MessageReplies.class);
-//
-//        registerOperationHandler(LdbcUpdate1AddPerson.class, Update1AddPerson.class);
-//        registerOperationHandler(LdbcUpdate2AddPostLike.class, Update2AddPostLike.class);
-//        registerOperationHandler(LdbcUpdate3AddCommentLike.class, Update3AddCommentLike.class);
-//        registerOperationHandler(LdbcUpdate4AddForum.class, Update4AddForum.class);
-//        registerOperationHandler(LdbcUpdate5AddForumMembership.class, Update5AddForumMembership.class);
-//        registerOperationHandler(LdbcUpdate6AddPost.class, Update6AddPost.class);
-//        registerOperationHandler(LdbcUpdate7AddComment.class, Update7AddComment.class);
-//        registerOperationHandler(LdbcUpdate8AddFriendship.class, Update8AddFriendship.class);
+
+        registerOperationHandler(LdbcUpdate1AddPerson.class, Update1AddPerson.class);
+        registerOperationHandler(LdbcUpdate2AddPostLike.class, Update2AddPostLike.class);
+        registerOperationHandler(LdbcUpdate3AddCommentLike.class, Update3AddCommentLike.class);
+        registerOperationHandler(LdbcUpdate4AddForum.class, Update4AddForum.class);
+        registerOperationHandler(LdbcUpdate5AddForumMembership.class, Update5AddForumMembership.class);
+        registerOperationHandler(LdbcUpdate6AddPost.class, Update6AddPost.class);
+        registerOperationHandler(LdbcUpdate7AddComment.class, Update7AddComment.class);
+        registerOperationHandler(LdbcUpdate8AddFriendship.class, Update8AddFriendship.class);
     }
 
 }
