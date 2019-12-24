@@ -397,12 +397,12 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         public LdbcShortQuery1PersonProfileResult convertSingleResult(Record record) throws ParseException {
             String firstName = record.getString(0);
             String lastName = record.getString(1);
-            long birthday = record.getValue(2);
+            long birthday = Long.parseLong(record.getValue(2));
             String locationIP = record.getString(3);
             String browserUsed = record.getString(4);
-            long cityId = record.getValue(5);
+            long cityId = Long.parseLong(record.getValue(5));
             String gender = record.getValue(6);
-            long creationDate = record.getValue(7);
+            long creationDate = Long.parseLong(record.getValue(7));
             return new LdbcShortQuery1PersonProfileResult(
                     firstName,
                     lastName,
@@ -412,6 +412,145 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
                     cityId,
                     gender,
                     creationDate);
+        }
+    }
+
+    public static class ShortQuery2PersonPosts extends CypherListOperationHandler<LdbcShortQuery2PersonPosts, LdbcShortQuery2PersonPostsResult> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery2PersonPosts operation) {
+            return state.getQueryStore().getShortQuery2PersonPosts(operation);
+        }
+
+        @Override
+        public LdbcShortQuery2PersonPostsResult convertSingleResult(Record record) throws ParseException {
+            long messageId = Long.parseLong(record.getString(0));
+            String messageContent = record.getString(1);
+            long messageCreationDate = Long.parseLong(record.getString(2));
+            long originalPostId = Long.parseLong(record.getString(3));
+            long originalPostAuthorId = Long.parseLong(record.getString(4));
+            String originalPostAuthorFirstName = record.getString(5);
+            String originalPostAuthorLastName = record.getString(6);
+            return new LdbcShortQuery2PersonPostsResult(
+                    messageId,
+                    messageContent,
+                    messageCreationDate,
+                    originalPostId,
+                    originalPostAuthorId,
+                    originalPostAuthorFirstName,
+                    originalPostAuthorLastName);
+        }
+    }
+
+    public static class ShortQuery3PersonFriends extends CypherListOperationHandler<LdbcShortQuery3PersonFriends, LdbcShortQuery3PersonFriendsResult> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery3PersonFriends operation) {
+            return state.getQueryStore().getShortQuery3PersonFriends(operation);
+        }
+
+        @Override
+        public LdbcShortQuery3PersonFriendsResult convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String firstName = record.getString(1);
+            String lastName = record.getString(2);
+            //TODO: RedisGraph fix me
+            long friendshipCreationDate = Long.parseLong(record.getString(3));// CypherConverter.convertLongTimestampToEpoch(record.get(3).asLong());
+            return new LdbcShortQuery3PersonFriendsResult(
+                    personId,
+                    firstName,
+                    lastName,
+                    friendshipCreationDate);
+        }
+    }
+
+    public static class ShortQuery4MessageContent extends CypherSingletonOperationHandler<LdbcShortQuery4MessageContent, LdbcShortQuery4MessageContentResult> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery4MessageContent operation) {
+            return state.getQueryStore().getShortQuery4MessageContent(operation);
+        }
+
+        @Override
+        public LdbcShortQuery4MessageContentResult convertSingleResult(Record record) throws ParseException {
+            // Pay attention, the spec's and the implementation's parameter orders are different.
+            //TODO: RedisGraph fix me
+            long messageCreationDate = Long.parseLong(record.getString(0)); //CypherConverter.convertLongTimestampToEpoch(record.get(0).asLong());
+            String messageContent = record.getString(1);
+            return new LdbcShortQuery4MessageContentResult(
+                    messageContent,
+                    messageCreationDate);
+        }
+    }
+
+    public static class ShortQuery5MessageCreator extends CypherSingletonOperationHandler<LdbcShortQuery5MessageCreator, LdbcShortQuery5MessageCreatorResult> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery5MessageCreator operation) {
+            return state.getQueryStore().getShortQuery5MessageCreator(operation);
+        }
+
+        @Override
+        public LdbcShortQuery5MessageCreatorResult convertSingleResult(Record record) {
+            long personId = Long.parseLong(record.getString(0));
+            String firstName = record.getString(1);
+            String lastName = record.getString(2);
+            return new LdbcShortQuery5MessageCreatorResult(
+                    personId,
+                    firstName,
+                    lastName);
+        }
+    }
+
+    public static class ShortQuery6MessageForum extends CypherSingletonOperationHandler<LdbcShortQuery6MessageForum, LdbcShortQuery6MessageForumResult> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery6MessageForum operation) {
+            return state.getQueryStore().getShortQuery6MessageForum(operation);
+        }
+
+        @Override
+        public LdbcShortQuery6MessageForumResult convertSingleResult(Record record) {
+            long forumId = Long.parseLong(record.getString(0));
+            String forumTitle = record.getString(1);
+            long moderatorId = Long.parseLong(record.getString(2));
+            String moderatorFirstName = record.getString(3);
+            String moderatorLastName = record.getString(4);
+            return new LdbcShortQuery6MessageForumResult(
+                    forumId,
+                    forumTitle,
+                    moderatorId,
+                    moderatorFirstName,
+                    moderatorLastName);
+        }
+    }
+
+    public static class ShortQuery7MessageReplies extends CypherListOperationHandler<LdbcShortQuery7MessageReplies, LdbcShortQuery7MessageRepliesResult> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery7MessageReplies operation) {
+            return state.getQueryStore().getShortQuery7MessageReplies(operation);
+        }
+
+        @Override
+        public LdbcShortQuery7MessageRepliesResult convertSingleResult(Record record) throws ParseException {
+
+            long commentId = Long.parseLong(record.getString(0));
+            String commentContent = record.getString(1);
+            //TODO: RedisGraph fix me
+            long commentCreationDate = Long.parseLong(record.getString(2)); //CypherConverter.convertLongTimestampToEpoch(record.get(2).asLong());
+            long replyAuthorId = Long.parseLong(record.getString(3));
+            String replyAuthorFirstName = record.getString(4);
+            String replyAuthorLastName = record.getString(5);
+            boolean replyAuthorKnowsOriginalMessageAuthor = Boolean.parseBoolean(record.getString(6));
+            return new LdbcShortQuery7MessageRepliesResult(
+                    commentId,
+                    commentContent,
+                    commentCreationDate,
+                    replyAuthorId,
+                    replyAuthorFirstName,
+                    replyAuthorLastName,
+                    replyAuthorKnowsOriginalMessageAuthor);
         }
     }
 
