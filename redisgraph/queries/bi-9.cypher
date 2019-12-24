@@ -1,11 +1,3 @@
-// Q9. Forum with related Tags
-/*
-  :param {
-    tagClass1: 'BaseballPlayer',
-    tagClass2: 'ChristianBishop',
-    threshold: 200
-  }
-*/
 MATCH
   (forum:Forum)-[:HAS_MEMBER]->(person:Person)
 WITH forum, count(person) AS members

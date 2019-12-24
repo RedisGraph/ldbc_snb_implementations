@@ -1,12 +1,3 @@
-// Q2. Top tags for country, age, gender, time
-/*
-  :param {
-    date1: 20091231230000000,
-    date2: 20101107230000000,
-    country1: 'Ethiopia',
-    country2: 'Belarus'
-  }
-*/
 MATCH
   (country:Country)<-[:IS_PART_OF]-(:City)<-[:IS_LOCATED_IN]-(person:Person)
   <-[:HAS_CREATOR]-(message:Message)-[:HAS_TAG]->(tag:Tag)

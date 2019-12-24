@@ -1,7 +1,3 @@
-// Q20. High-level topics
-/*
-  :param { tagClasses: ['Writer', 'Single', 'Country'] }
-*/
 UNWIND $tagClasses AS tagClassName
 MATCH
   (tagClass:TagClass {name: tagClassName})<-[:IS_SUBCLASS_OF*0..]-

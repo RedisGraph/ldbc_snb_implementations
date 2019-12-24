@@ -1,10 +1,3 @@
-// Q3. Tag evolution
-/*
-  :param {
-    year: 2010,
-    month: 10
-  }
-*/
 WITH
   $year AS year1,
   $month AS month1,

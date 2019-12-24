@@ -1,10 +1,3 @@
-// Q12. Trending Posts
-/*
-  :param {
-    date: 20110721220000000,
-    likeThreshold: 400
-  }
-*/
 MATCH
   (message:Message)-[:HAS_CREATOR]->(creator:Person),
   (message)<-[like:LIKES]-(:Person)

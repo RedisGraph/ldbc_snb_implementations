@@ -1,12 +1,4 @@
-// Q10. Central Person for a Tag
-/*
-  :param {
-    tag: 'John_Rhys-Davies',
-    date: 20120122000000000
-  }
-*/
 MATCH (tag:Tag {name: $tag})
-// score
 OPTIONAL MATCH (tag)<-[interest:HAS_INTEREST]-(person:Person)
 WITH tag, collect(person) AS interestedPersons
 OPTIONAL MATCH (tag)<-[:HAS_TAG]-(message:Message)-[:HAS_CREATOR]->(person:Person)
@@ -14,13 +6,12 @@ OPTIONAL MATCH (tag)<-[:HAS_TAG]-(message:Message)-[:HAS_CREATOR]->(person:Perso
 WITH tag, interestedPersons, collect(person) AS persons
 WITH tag, interestedPersons + persons AS persons
 UNWIND persons AS person
-// poor man's disjunct union (should be changed to UNION + post-union processing in the future)
 WITH DISTINCT tag, person
 OPTIONAL MATCH (tag)<-[interest:HAS_INTEREST]-(person:Person)
 WITH
   tag,
   person,
-  count(interest) AS score // multiple by 100 deferred to next query part
+  count(interest) AS score
 OPTIONAL MATCH (tag)<-[:HAS_TAG]-(message:Message)-[:HAS_CREATOR]->(person)
          WHERE message.creationDate > $date
 WITH
@@ -44,7 +35,7 @@ WITH
   person,
   score,
   friend,
-  count(interest) AS friendScore // multiple by 100 deferred to next query part
+  count(interest) AS friendScore
 OPTIONAL MATCH (tag)<-[:HAS_TAG]-(message:Message)-[:HAS_CREATOR]->(friend)
          WHERE message.creationDate > $date
 WITH

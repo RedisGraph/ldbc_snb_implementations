@@ -1,19 +1,3 @@
-// Q16. Experts in social circle
-/*
-  :param {
-    personId: 19791209310731,
-    country: 'Pakistan',
-    tagClass: 'MusicalArtist',
-    minPathDistance: 3,
-    maxPathDistance: 5
-  }
-*/
-// This query will not work in a browser as is. I tried alternatives approaches,
-// e.g. enabling path of arbitrary lengths, saving the path to a variable p and
-// checking for `$minPathDistance <= length(p)`, but these could not be
-// evaluated due to the excessive amount of paths.
-// If you would like to test the query in the browser, replace the values of
-// $minPathDistance and $maxPathDistance to a constant.
 MATCH
   (:Person {id: $personId})-[:KNOWS*$minPathDistance..$maxPathDistance]-(person:Person)
 WITH DISTINCT person

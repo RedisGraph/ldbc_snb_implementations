@@ -1,13 +1,9 @@
-// Q1. Posting summary
-/*
-  :param { date: 20110721220000000 }
-*/
 MATCH (message:Message)
-WHERE message.creationDate < $date
-WITH count(message) AS totalMessageCountInt // this should be a subquery once Cypher supports it
+  WHERE message.creationDate < $date
+WITH count(message) AS totalMessageCountInt
 WITH toFloat(totalMessageCountInt) AS totalMessageCount
 MATCH (message:Message)
-WHERE message.creationDate < $date
+  WHERE message.creationDate < $date
   AND message.content IS NOT NULL
 WITH
   totalMessageCount,
@@ -22,7 +18,7 @@ WITH
     WHEN message.length <  80 THEN 1
     WHEN message.length < 160 THEN 2
     ELSE                           3
-  END AS lengthCategory,
+    END AS lengthCategory,
   count(message) AS messageCount,
   floor(avg(message.length)) AS averageMessageLength,
   sum(message.length) AS sumMessageLength
@@ -34,7 +30,7 @@ RETURN
   averageMessageLength,
   sumMessageLength,
   messageCount / totalMessageCount AS percentageOfMessages
-ORDER BY
+  ORDER BY
   year DESC,
   isComment ASC,
   lengthCategory ASC

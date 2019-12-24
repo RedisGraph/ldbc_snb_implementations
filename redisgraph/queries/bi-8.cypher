@@ -1,7 +1,3 @@
-// Q8. Related Topics
-/*
-  :param { tag: 'Genghis_Khan' }
-*/
 MATCH
   (tag:Tag {name: $tag})<-[:HAS_TAG]-(message:Message),
   (message)<-[:REPLY_OF]-(comment:Comment)-[:HAS_TAG]->(relatedTag:Tag)

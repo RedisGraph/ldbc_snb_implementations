@@ -8,6 +8,7 @@ import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDbConnection
 import com.redislabs.redisgraph.Record;
 import com.redislabs.redisgraph.RedisGraphContext;
 import com.redislabs.redisgraph.ResultSet;
+import com.redislabs.redisgraph.exceptions.JRedisGraphCompileTimeException;
 
 import java.text.ParseException;
 
@@ -18,14 +19,16 @@ public abstract class CypherSingletonOperationHandler<TOperation extends Operati
     public void executeOperation(TOperation operation, RedisGraphCypherDbConnectionState state,
                                  ResultReporter resultReporter) throws DbException {
 
+        RedisGraphContext context = state.getContext();
+        final String graphId = state.getGraphId();
 
-        try (RedisGraphContext context = state.getContext()) {
-            final String graphId = state.getGraphId();
+        final String queryString = getQueryString(state, operation);
+        state.logQuery(operation.getClass().getSimpleName(), queryString);
+
+        try {
             TOperationResult tuple = null;
             int resultCount = 0;
 
-            final String queryString = getQueryString(state, operation);
-            state.logQuery(operation.getClass().getSimpleName(), queryString);
             final ResultSet StatementResult = context.query(graphId, queryString);
 
             if (StatementResult.hasNext()) {

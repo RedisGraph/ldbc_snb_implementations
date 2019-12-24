@@ -1,10 +1,3 @@
-// Q4. Popular topics in a country
-/*
-  :param {
-    tagClass: 'MusicalArtist',
-    country: 'Burma'
-  }
-*/
 MATCH
   (:Country {name: $country})<-[:IS_PART_OF]-(:City)<-[:IS_LOCATED_IN]-
   (person:Person)<-[:HAS_MODERATOR]-(forum:Forum)-[:CONTAINER_OF]->

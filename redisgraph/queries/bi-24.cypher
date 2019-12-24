@@ -1,7 +1,3 @@
-// Q24. Messages by Topic and Continent
-/*
-  :param { tagClass: 'Single' }
-*/
 MATCH (:TagClass {name: $tagClass})<-[:HAS_TYPE]-(:Tag)<-[:HAS_TAG]-(message:Message)
 WITH DISTINCT message
 MATCH (message)-[:IS_LOCATED_IN]->(:Country)-[:IS_PART_OF]->(continent:Continent)

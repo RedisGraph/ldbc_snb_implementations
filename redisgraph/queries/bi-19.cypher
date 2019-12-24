@@ -1,11 +1,3 @@
-// Q19. Stranger's interaction
-/*
-  :param {
-    date: 19890101,
-    tagClass1: 'MusicalArtist',
-    tagClass2: 'OfficeHolder'
-  }
-*/
 MATCH
   (:TagClass {name: $tagClass1})<-[:HAS_TYPE]-(:Tag)<-[:HAS_TAG]-
   (forum1:Forum)-[:HAS_MEMBER]->(stranger:Person)

@@ -1,7 +1,3 @@
-// Q7. Most authoritative users on a given topic
-/*
-  :param { tag: 'Arnold_Schwarzenegger' }
-*/
 MATCH (tag:Tag {name: $tag})
 MATCH (tag)<-[:HAS_TAG]-(message1:Message)-[:HAS_CREATOR]->(person1:Person)
 MATCH (tag)<-[:HAS_TAG]-(message2:Message)-[:HAS_CREATOR]->(person1)

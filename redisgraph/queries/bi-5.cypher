@@ -1,7 +1,3 @@
-// Q5. Top posters in a country
-/*
-  :param { country: 'Belarus' }
-*/
 MATCH
   (:Country {name: $country})<-[:IS_PART_OF]-(:City)<-[:IS_LOCATED_IN]-
   (person:Person)<-[:HAS_MEMBER]-(forum:Forum)

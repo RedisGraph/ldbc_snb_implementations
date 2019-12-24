@@ -1,7 +1,3 @@
-// Q13. Popular Tags per month in a country
-/*
-  :param { country: 'Burma' }
-*/
 MATCH (:Country {name: $country})<-[:IS_LOCATED_IN]-(message:Message)
 OPTIONAL MATCH (message)-[:HAS_TAG]->(tag:Tag)
 WITH

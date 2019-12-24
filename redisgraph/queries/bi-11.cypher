@@ -1,10 +1,3 @@
-// Q11. Unrelated replies
-/*
-  :param {
-    country: 'Germany',
-    blacklist: ['also', 'Pope', 'that', 'James', 'Henry', 'one', 'Green']
-  }
-*/
 WITH $blacklist AS blacklist
 MATCH
   (country:Country {name: $country})<-[:IS_PART_OF]-(:City)<-[:IS_LOCATED_IN]-
