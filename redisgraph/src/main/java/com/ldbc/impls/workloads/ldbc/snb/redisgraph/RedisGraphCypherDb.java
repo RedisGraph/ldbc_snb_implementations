@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQueryStore> {
 
@@ -31,7 +32,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
         @Override
         public LdbcQuery1Result convertSingleResult(Record record) throws ParseException {
-
+            // TODO: RedisGraph fix me
             List<String> emails = new ArrayList<>();
 //            if (!Objects.isNull(record.getValue(8))) {
 //                record.getValue(8)
@@ -52,7 +53,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 //            } else {
 //                languages = new ArrayList<>();
 //            }
-//
+//          // TODO: RedisGraph fix me
             List<List<Object>> universities = new ArrayList<>();
 //            if (!Objects.isNull(record.getValue(11))) {
 //                universities = record.getValue(11).asList((e) ->
@@ -60,7 +61,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 //            } else {
 //                universities = new ArrayList<>();
 //            }
-
+            // TODO: RedisGraph fix me
             List<List<Object>> companies = new ArrayList<>();
 //            if (!Objects.isNull(record.getValue(12))) {
 //                companies = record.getValue(12).asList((e) ->
@@ -107,8 +108,9 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
             long personId = Long.parseLong(record.getString(0));
             String personFirstName = record.getString(1);
             String personLastName = record.getString(2);
-            long messageId = record.getValue(3);
+            long messageId = Long.parseLong(record.getString(3));
             String messageContent = record.getString(4);
+            // TODO: RedisGraph fix me
             long messageCreationDate = record.getValue(0); //CypherConverter.convertLongTimestampToEpoch(record.get(5).asLong());
 
             return new LdbcQuery2Result(
@@ -160,6 +162,225 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
             return new LdbcQuery4Result(tagName, postCount);
         }
 
+    }
+
+    public static class InteractiveQuery5 extends CypherListOperationHandler<LdbcQuery5, LdbcQuery5Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery5 operation) {
+            return state.getQueryStore().getQuery5(operation);
+        }
+
+        @Override
+        public LdbcQuery5Result convertSingleResult(Record record) {
+            String forumTitle = record.getString(0);
+            int postCount = Integer.parseInt(record.getString(1));
+            return new LdbcQuery5Result(forumTitle, postCount);
+        }
+    }
+
+    public static class InteractiveQuery6 extends CypherListOperationHandler<LdbcQuery6, LdbcQuery6Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery6 operation) {
+            return state.getQueryStore().getQuery6(operation);
+        }
+
+        @Override
+        public LdbcQuery6Result convertSingleResult(Record record) {
+            String tagName = record.getString(0);
+            int postCount = Integer.parseInt(record.getString(1));
+            return new LdbcQuery6Result(tagName, postCount);
+        }
+    }
+
+    public static class InteractiveQuery7 extends CypherListOperationHandler<LdbcQuery7, LdbcQuery7Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery7 operation) {
+            return state.getQueryStore().getQuery7(operation);
+        }
+
+        @Override
+        public LdbcQuery7Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            long likeCreationDate = Long.parseLong(record.getString(3));
+            long messageId = Long.parseLong(record.getString(4));
+            String messageContent = record.getString(5);
+            // TODO: RedisGraph fix me
+            int minutesLatency = 0; //CypherConverter.convertStartAndEndDateToLatency(record.get(6).asLong(), record.get(3).asLong());
+            boolean isNew = Boolean.parseBoolean(record.getString(7));
+            return new LdbcQuery7Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    likeCreationDate,
+                    messageId,
+                    messageContent,
+                    minutesLatency,
+                    isNew);
+        }
+    }
+
+    public static class InteractiveQuery8 extends CypherListOperationHandler<LdbcQuery8, LdbcQuery8Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery8 operation) {
+            return state.getQueryStore().getQuery8(operation);
+        }
+
+        @Override
+        public LdbcQuery8Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            long commentCreationDate = Long.parseLong(record.getString(3));
+            long commentId = Long.parseLong(record.getString(4));
+            String commentContent = record.getString(5);
+            return new LdbcQuery8Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    commentCreationDate,
+                    commentId,
+                    commentContent);
+        }
+    }
+
+    public static class InteractiveQuery9 extends CypherListOperationHandler<LdbcQuery9, LdbcQuery9Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery9 operation) {
+            return state.getQueryStore().getQuery9(operation);
+        }
+
+        @Override
+        public LdbcQuery9Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            long messageId = Long.parseLong(record.getString(3));
+            String messageContent = record.getString(4);
+            long messageCreationDate = Long.parseLong(record.getString(5));
+            return new LdbcQuery9Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    messageId,
+                    messageContent,
+                    messageCreationDate);
+        }
+    }
+
+    public static class InteractiveQuery10 extends CypherListOperationHandler<LdbcQuery10, LdbcQuery10Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery10 operation) {
+            return state.getQueryStore().getQuery10(operation);
+        }
+
+        @Override
+        public LdbcQuery10Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            int commonInterestScore = Integer.parseInt(record.getString(3));
+            String personGender = record.getString(4);
+            String personCityName = record.getString(5);
+            return new LdbcQuery10Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    commonInterestScore,
+                    personGender,
+                    personCityName);
+        }
+    }
+
+    public static class InteractiveQuery11 extends CypherListOperationHandler<LdbcQuery11, LdbcQuery11Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery11 operation) {
+            return state.getQueryStore().getQuery11(operation);
+        }
+
+        @Override
+        public LdbcQuery11Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            String organizationName = record.getString(3);
+            int organizationWorkFromYear = Integer.parseInt(record.getString(4));
+            return new LdbcQuery11Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    organizationName,
+                    organizationWorkFromYear);
+        }
+    }
+
+    public static class InteractiveQuery12 extends CypherListOperationHandler<LdbcQuery12, LdbcQuery12Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery12 operation) {
+            return state.getQueryStore().getQuery12(operation);
+        }
+
+        @Override
+        public LdbcQuery12Result convertSingleResult(Record record) throws ParseException {
+            long personId = Long.parseLong(record.getString(0));
+            String personFirstName = record.getString(1);
+            String personLastName = record.getString(2);
+            List<String> tagNames = new ArrayList<>();
+            //TODO: RedisGraph fix me
+            if (!Objects.isNull(record.getValue(3))) {
+//                tagNames = record.getValue(3).asList((e) -> e.asString());
+            }
+            int replyCount = Integer.parseInt(record.getString(4));
+            return new LdbcQuery12Result(
+                    personId,
+                    personFirstName,
+                    personLastName,
+                    tagNames,
+                    replyCount);
+        }
+    }
+
+    public static class InteractiveQuery13 extends CypherSingletonOperationHandler<LdbcQuery13, LdbcQuery13Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery13 operation) {
+            return state.getQueryStore().getQuery13(operation);
+        }
+
+        @Override
+        public LdbcQuery13Result convertSingleResult(Record record) {
+            return new LdbcQuery13Result(Integer.parseInt(record.getString(0)));
+        }
+    }
+
+    public static class InteractiveQuery14 extends CypherListOperationHandler<LdbcQuery14, LdbcQuery14Result> {
+
+        @Override
+        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery14 operation) {
+            return state.getQueryStore().getQuery14(operation);
+        }
+
+        @Override
+        public LdbcQuery14Result convertSingleResult(Record record) throws ParseException {
+            List<Long> personIdsInPath = new ArrayList<>();
+            //TODO: RedisGraph fix me
+            if (!Objects.isNull(record.getValue(0))) {
+//                personIdsInPath = record.get(0).asList((e) -> e.asLong());
+            }
+            double pathWight = Double.parseDouble(record.getString(1));
+            return new LdbcQuery14Result(
+                    personIdsInPath,
+                    pathWight);
+        }
     }
 
 
