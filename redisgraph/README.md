@@ -24,6 +24,14 @@ ldbc.snb.datagen.serializer.staticSerializer:ldbc.snb.datagen.serializer.snb.csv
 
 An example configuration for scale factor 1 is given in the [`params-csv-composite.ini`](https://github.com/ldbc/ldbc_snb_datagen/blob/master/params-csv-composite.ini) file of the DATAGEN repository. For small loading experiments, we recommend using scale factor 0.1, i.e. `snb.interactive.0.1`.
 
+```
+source environment-variables-redisgraph.sh
+cd $REDISGRAPH_DATAGEN_DIR
+rm -rf social_network/ substitution_parameters && \
+  docker run --rm --mount type=bind,source="$(pwd)/",target="/opt/ldbc_snb_datagen/out" --mount type=bind,source="$(pwd)/params.ini",target="/opt/ldbc_snb_datagen/params.ini" ldbc/datagen; \
+  sudo chown -R $USER:$USER social_network/ substitution_parameters/
+```
+
 ### Preprocessing and loading
 
 Go to the `load-scripts/` directory.
