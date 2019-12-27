@@ -46,6 +46,7 @@ public abstract class CypherListOperationHandler<TOperation extends Operation<Li
                 results.add(tuple);
             }
         } catch (JRedisGraphCompileTimeException e) {
+            e.printStackTrace();
             throw new DbException(e);
         }
 

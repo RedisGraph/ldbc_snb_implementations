@@ -390,7 +390,6 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
     // Interactive short reads
 
     public static class ShortQuery1PersonProfile extends CypherSingletonOperationHandler<LdbcShortQuery1PersonProfile, LdbcShortQuery1PersonProfileResult> {
-
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery1PersonProfile operation) {
             return state.getQueryStore().getShortQuery1PersonProfile(operation);

@@ -5,11 +5,11 @@ RETURN
   CASE exists(m.content)
     WHEN true THEN m.content
     ELSE m.imageFile
-  END AS messageContent,
+    END AS messageContent,
   m.creationDate AS messageCreationDate,
   p.id AS originalPostId,
   c.id AS originalPostAuthorId,
   c.firstName as originalPostAuthorFirstName,
   c.lastName as originalPostAuthorLastName
-ORDER BY messageCreationDate DESC
-LIMIT 10
+  ORDER BY messageCreationDate DESC
+  LIMIT 10

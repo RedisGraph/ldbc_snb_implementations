@@ -1,6 +1,7 @@
 package com.ldbc.impls.workloads.ldbc.snb.redisgraph;
 
 import com.ldbc.driver.DbException;
+import com.ldbc.driver.WorkloadException;
 import com.ldbc.impls.workloads.ldbc.snb.BaseDbConnectionState;
 import com.redislabs.redisgraph.RedisGraphContext;
 import com.redislabs.redisgraph.impl.api.RedisGraph;

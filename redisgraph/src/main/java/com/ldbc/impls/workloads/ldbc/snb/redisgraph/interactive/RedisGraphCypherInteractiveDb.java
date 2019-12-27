@@ -1,6 +1,7 @@
 package com.ldbc.impls.workloads.ldbc.snb.redisgraph.interactive;
 
 import com.ldbc.driver.DbException;
+import com.ldbc.driver.WorkloadException;
 import com.ldbc.driver.control.LoggingService;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.*;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDb;

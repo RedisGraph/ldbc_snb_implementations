@@ -10,6 +10,7 @@ import com.redislabs.redisgraph.RedisGraphContext;
 import com.redislabs.redisgraph.ResultSet;
 import com.redislabs.redisgraph.exceptions.JRedisGraphCompileTimeException;
 
+import java.io.IOException;
 import java.text.ParseException;
 
 public abstract class CypherSingletonOperationHandler<TOperation extends Operation<TOperationResult>, TOperationResult>
@@ -45,7 +46,14 @@ public abstract class CypherSingletonOperationHandler<TOperation extends Operati
 
             resultReporter.report(resultCount, tuple, operation);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new DbException(e);
+        }
+
+        try {
+            state.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
