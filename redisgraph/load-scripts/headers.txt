@@ -1,5 +1,3 @@
-static/organisation id:ID(Organisation)|:LABEL|name:STRING|url:STRING
-static/place id:ID(Place)|name:STRING|url:STRING|:LABEL
 static/tagclass id:ID(TagClass)|name:STRING|url:STRING
 static/tag id:ID(Tag)|name:STRING|url:STRING
 static/tagclass_isSubclassOf_tagclass :START_ID(TagClass)|:END_ID(TagClass)
@@ -8,7 +6,7 @@ static/organisation_isLocatedIn_place :START_ID(Organisation)|:END_ID(Place)
 static/place_isPartOf_place :START_ID(Place)|:END_ID(Place)
 dynamic/comment id:ID(Comment)|creationDate:LONG|locationIP:STRING|browserUsed:STRING|content:STRING|length:INT
 dynamic/forum id:ID(Forum)|title:STRING|creationDate:LONG
-dynamic/person id:ID(Person)|firstName:STRING|lastName:STRING|gender:STRING|birthday:LONG|creationDate:LONG|locationIP:STRING|browserUsed:STRING|speaks:STRING[]|email:STRING[]
+dynamic/person id:ID(Person)|firstName:STRING|lastName:STRING|gender:STRING|birthday:LONG|creationDate:LONG|locationIP:STRING|browserUsed:STRING
 dynamic/post id:ID(Post)|imageFile:STRING|creationDate:LONG|locationIP:STRING|browserUsed:STRING|language:STRING|content:STRING|length:INT
 dynamic/comment_hasCreator_person :START_ID(Comment)|:END_ID(Person)
 dynamic/comment_isLocatedIn_place :START_ID(Comment)|:END_ID(Place)
