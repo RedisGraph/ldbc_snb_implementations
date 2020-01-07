@@ -1,6 +1,9 @@
 #!/bin/bash
 
-python3 ${PATH_TO_LOADER}/bulk_insert/bulk_insert.py G -o \| \
+echo "starting preprocessing"
+source ./../environment-variables-redisgraph.sh
+
+python3 ${PATH_TO_LOADER}/bulk_insert/bulk_insert.py ${GRAPHNAME} -o \| \
 -n ${REDISGRAPH_DATA_DIR}/static/City.csv \
 -n ${REDISGRAPH_DATA_DIR}/static/Company.csv \
 -n ${REDISGRAPH_DATA_DIR}/static/Continent.csv \
