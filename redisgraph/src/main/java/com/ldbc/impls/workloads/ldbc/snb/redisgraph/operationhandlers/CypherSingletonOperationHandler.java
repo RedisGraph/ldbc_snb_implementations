@@ -8,7 +8,6 @@ import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDbConnection
 import com.redislabs.redisgraph.Record;
 import com.redislabs.redisgraph.RedisGraphContext;
 import com.redislabs.redisgraph.ResultSet;
-import com.redislabs.redisgraph.exceptions.JRedisGraphCompileTimeException;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -31,6 +30,8 @@ public abstract class CypherSingletonOperationHandler<TOperation extends Operati
             int resultCount = 0;
 
             final ResultSet StatementResult = context.query(graphId, queryString);
+
+            System.out.println(StatementResult.getHeader());
 
             if (StatementResult.hasNext()) {
                 final Record record = StatementResult.next();

@@ -236,11 +236,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
         @Override
         public LdbcQuery8Result convertSingleResult(Record record) throws ParseException {
-            long personId = Long.parseLong(record.getString(0));
+            long personId = ((Integer) record.getValue(0)).longValue();
             String personFirstName = record.getString(1);
             String personLastName = record.getString(2);
-            long commentCreationDate = Long.parseLong(record.getString(3));
-            long commentId = Long.parseLong(record.getString(4));
+            long commentCreationDate = ((Integer) record.getValue(3)).longValue();
+            long commentId = ((Integer) record.getValue(4)).longValue();
             String commentContent = record.getString(5);
             return new LdbcQuery8Result(
                     personId,

@@ -21,42 +21,51 @@ public abstract class CypherListOperationHandler<TOperation extends Operation<Li
     @Override
     public void executeOperation(TOperation operation, RedisGraphCypherDbConnectionState state,
                                  ResultReporter resultReporter) throws DbException {
-        RedisGraphContext context = state.getContext();
-        final String graphId = state.getGraphId();
 
-        List<TOperationResult> results = new ArrayList<>();
-        int resultCount = 0;
-        results.clear();
-        final String queryString = getQueryString(state, operation);
-        state.logQuery(operation.getClass().getSimpleName(), queryString);
-        try {
-            final ResultSet result = context.query(graphId, queryString);
-            while (result.hasNext()) {
-                final Record record = result.next();
-                resultCount++;
-                TOperationResult tuple;
-                try {
-                    tuple = convertSingleResult(record);
-                } catch (ParseException e) {
-                    throw new DbException(e);
+
+        try (RedisGraphContext context = state.getContext()) {
+            final String graphId = state.getGraphId();
+
+            List<TOperationResult> results = new ArrayList<>();
+            int resultCount = 0;
+            results.clear();
+            final String queryString = getQueryString(state, operation);
+            state.logQuery(operation.getClass().getSimpleName(), queryString);
+            try {
+                final ResultSet result = context.query(graphId, queryString);
+                System.out.println(result.getHeader());
+
+                while (result.hasNext()) {
+                    final Record record = result.next();
+                    resultCount++;
+                    TOperationResult tuple;
+                    try {
+                        tuple = convertSingleResult(record);
+                    } catch (ParseException e) {
+                        throw new DbException(e);
+                    }
+                    if (state.isPrintResults()) {
+                        System.out.println(tuple.toString());
+                    }
+                    results.add(tuple);
                 }
-                if (state.isPrintResults()) {
-                    System.out.println(tuple.toString());
-                }
-                results.add(tuple);
+            } catch (JRedisGraphCompileTimeException e) {
+                e.printStackTrace();
+                throw new DbException(e);
             }
-        } catch (JRedisGraphCompileTimeException e) {
-            e.printStackTrace();
+
+            try {
+                state.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            resultReporter.report(resultCount, results, operation);
+        } catch (Exception e) {
             throw new DbException(e);
         }
-
-        try {
-            state.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        resultReporter.report(resultCount, results, operation);
     }
+
 
     public abstract TOperationResult convertSingleResult(Record record) throws ParseException;
 
