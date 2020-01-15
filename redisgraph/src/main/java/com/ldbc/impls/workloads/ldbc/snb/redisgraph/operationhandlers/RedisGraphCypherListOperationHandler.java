@@ -15,7 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CypherListOperationHandler<TOperation extends Operation<List<TOperationResult>>, TOperationResult>
+public abstract class RedisGraphCypherListOperationHandler<TOperation extends Operation<List<TOperationResult>>, TOperationResult>
         implements ListOperationHandler<TOperationResult, TOperation, RedisGraphCypherDbConnectionState> {
 
     @Override
@@ -32,8 +32,9 @@ public abstract class CypherListOperationHandler<TOperation extends Operation<Li
             final String queryString = getQueryString(state, operation);
             state.logQuery(operation.getClass().getSimpleName(), queryString);
             try {
-                final ResultSet result = context.query(graphId, queryString);
-                System.out.println(result.getHeader());
+                ResultSet result = context.query(graphId, queryString);
+                System.out.println(result.toString());
+                System.out.println(result.hasNext());
 
                 while (result.hasNext()) {
                     final Record record = result.next();

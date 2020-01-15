@@ -1,6 +1,14 @@
 #!/bin/bash
 
 echo "starting preprocessing"
+
+# Ensure awk is available
+EXE_FILE_NAME=${EXE_FILE_NAME:-$(which awk)}
+if [[ -z "$EXE_FILE_NAME" ]]; then
+  echo "awk not available. It is not specified explicitly and not found in \$PATH"
+  exit 1
+fi
+
 source ./../environment-variables-redisgraph.sh
 
 echo ${REDISGRAPH_DATA_DIR}

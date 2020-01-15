@@ -8,30 +8,34 @@ import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDbConnection
 import com.redislabs.redisgraph.Record;
 import com.redislabs.redisgraph.RedisGraphContext;
 import com.redislabs.redisgraph.ResultSet;
+import com.redislabs.redisgraph.exceptions.JRedisGraphCompileTimeException;
+import com.redislabs.redisgraph.exceptions.JRedisGraphRunTimeException;
+import redis.clients.jedis.exceptions.JedisDataException;
 
 import java.io.IOException;
 import java.text.ParseException;
 
-public abstract class CypherSingletonOperationHandler<TOperation extends Operation<TOperationResult>, TOperationResult>
+public abstract class RedisGraphCypherSingletonOperationHandler<TOperation extends Operation<TOperationResult>, TOperationResult>
         implements SingletonOperationHandler<TOperationResult, TOperation, RedisGraphCypherDbConnectionState> {
 
     @Override
     public void executeOperation(TOperation operation, RedisGraphCypherDbConnectionState state,
                                  ResultReporter resultReporter) throws DbException {
 
-        RedisGraphContext context = state.getContext();
+        try (RedisGraphContext context = state.getContext()) {
         final String graphId = state.getGraphId();
 
         final String queryString = getQueryString(state, operation);
         state.logQuery(operation.getClass().getSimpleName(), queryString);
 
-        try {
+
             TOperationResult tuple = null;
             int resultCount = 0;
 
             final ResultSet StatementResult = context.query(graphId, queryString);
 
-            System.out.println(StatementResult.getHeader());
+//            System.out.println(StatementResult.toString());
+//            StatementResult.getStatistics().
 
             if (StatementResult.hasNext()) {
                 final Record record = StatementResult.next();
@@ -46,10 +50,19 @@ public abstract class CypherSingletonOperationHandler<TOperation extends Operati
             context.close();
 
             resultReporter.report(resultCount, tuple, operation);
+
+        } catch (JRedisGraphRunTimeException rt) {
+            rt.printStackTrace();
+            throw new DbException(rt);
+        } catch (JRedisGraphCompileTimeException j) {
+            j.printStackTrace();
+            throw new DbException(j);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DbException(e);
         }
+
+
 
         try {
             state.close();

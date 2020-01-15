@@ -25,7 +25,7 @@ public class RedisGraphCypherDbConnectionState extends BaseDbConnectionState<Red
     public RedisGraphCypherDbConnectionState(Map<String, String> properties, RedisGraphCypherQueryStore store) {
         super(properties, store);
         String host = properties.get("host");
-        Integer nThreads = Integer.parseInt(properties.get("thread_count"));
+        Integer nThreads = Integer.parseInt(properties.get("threadCount"));
         Integer port = Integer.parseInt(properties.get("port"));
         graphId = properties.get("graphId");
         GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();

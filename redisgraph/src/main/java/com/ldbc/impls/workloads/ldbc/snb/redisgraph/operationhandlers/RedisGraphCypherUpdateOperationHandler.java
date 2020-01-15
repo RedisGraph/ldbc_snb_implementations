@@ -7,8 +7,12 @@ import com.ldbc.driver.workloads.ldbc.snb.interactive.LdbcNoResult;
 import com.ldbc.impls.workloads.ldbc.snb.operationhandlers.UpdateOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDbConnectionState;
 import com.redislabs.redisgraph.RedisGraphContext;
+import com.redislabs.redisgraph.ResultSet;
+import com.redislabs.redisgraph.Record;
 
-public abstract class CypherUpdateOperationHandler<TOperation extends Operation<LdbcNoResult>>
+import java.text.ParseException;
+
+public abstract class RedisGraphCypherUpdateOperationHandler<TOperation extends Operation<LdbcNoResult>>
         implements UpdateOperationHandler<TOperation, RedisGraphCypherDbConnectionState> {
 
     @Override
@@ -18,10 +22,16 @@ public abstract class CypherUpdateOperationHandler<TOperation extends Operation<
             final String graphId = state.getGraphId();
             final String queryString = getQueryString(state, operation);
             state.logQuery(operation.getClass().getSimpleName(), queryString);
-            context.query(graphId, queryString);
+            final ResultSet StatementResult = context.query(graphId, queryString);
+
+            if (state.isPrintResults()) {
+                System.out.println(StatementResult.getHeader());
+            }
+
         } catch (Exception e) {
             throw new DbException(e);
         }
         resultReporter.report(0, LdbcNoResult.INSTANCE, operation);
     }
+
 }

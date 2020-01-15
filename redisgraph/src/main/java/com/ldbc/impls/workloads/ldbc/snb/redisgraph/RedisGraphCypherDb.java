@@ -6,9 +6,9 @@ import com.ldbc.driver.control.LoggingService;
 import com.ldbc.driver.workloads.ldbc.snb.bi.*;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.*;
 import com.ldbc.impls.workloads.ldbc.snb.db.BaseDb;
-import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.CypherListOperationHandler;
-import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.CypherSingletonOperationHandler;
-import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.CypherUpdateOperationHandler;
+import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherListOperationHandler;
+import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherSingletonOperationHandler;
+import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherUpdateOperationHandler;
 import com.redislabs.redisgraph.Record;
 
 import java.text.ParseException;
@@ -25,12 +25,12 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
     }
 
     // Interactive complex reads
-
-    public static class InteractiveQuery1 extends CypherListOperationHandler<LdbcQuery1, LdbcQuery1Result> {
+    // TODO: support InteractiveQuery1
+    public static class InteractiveQuery1 extends RedisGraphCypherListOperationHandler<LdbcQuery1, LdbcQuery1Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery1 operation) {
-            return state.getQueryStore().getQuery1(operation);
+            return state.getQueryStore().getQuery1(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -99,11 +99,12 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery2 extends CypherListOperationHandler<LdbcQuery2, LdbcQuery2Result> {
+    public static class InteractiveQuery2 extends RedisGraphCypherListOperationHandler<LdbcQuery2, LdbcQuery2Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery2 operation) {
-            return state.getQueryStore().getQuery2(operation);
+            return state.getQueryStore().getQuery2(operation).replace("\n", " ").replace("\r", " ");
+
         }
 
         @Override
@@ -126,11 +127,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery3 extends CypherListOperationHandler<LdbcQuery3, LdbcQuery3Result> {
+    public static class InteractiveQuery3 extends RedisGraphCypherListOperationHandler<LdbcQuery3, LdbcQuery3Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery3 operation) {
-            return state.getQueryStore().getQuery3(operation);
+            return state.getQueryStore().getQuery3(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -151,11 +152,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery4 extends CypherListOperationHandler<LdbcQuery4, LdbcQuery4Result> {
+    public static class InteractiveQuery4 extends RedisGraphCypherListOperationHandler<LdbcQuery4, LdbcQuery4Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery4 operation) {
-            return state.getQueryStore().getQuery4(operation);
+            return state.getQueryStore().getQuery4(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -167,11 +168,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class InteractiveQuery5 extends CypherListOperationHandler<LdbcQuery5, LdbcQuery5Result> {
+    public static class InteractiveQuery5 extends RedisGraphCypherListOperationHandler<LdbcQuery5, LdbcQuery5Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery5 operation) {
-            return state.getQueryStore().getQuery5(operation);
+            return state.getQueryStore().getQuery5(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -182,11 +183,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery6 extends CypherListOperationHandler<LdbcQuery6, LdbcQuery6Result> {
+    public static class InteractiveQuery6 extends RedisGraphCypherListOperationHandler<LdbcQuery6, LdbcQuery6Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery6 operation) {
-            return state.getQueryStore().getQuery6(operation);
+            return state.getQueryStore().getQuery6(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -197,11 +198,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery7 extends CypherListOperationHandler<LdbcQuery7, LdbcQuery7Result> {
+    public static class InteractiveQuery7 extends RedisGraphCypherListOperationHandler<LdbcQuery7, LdbcQuery7Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery7 operation) {
-            return state.getQueryStore().getQuery7(operation);
+            return state.getQueryStore().getQuery7(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -227,11 +228,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery8 extends CypherListOperationHandler<LdbcQuery8, LdbcQuery8Result> {
+    public static class InteractiveQuery8 extends RedisGraphCypherListOperationHandler<LdbcQuery8, LdbcQuery8Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery8 operation) {
-            return state.getQueryStore().getQuery8(operation);
+            return state.getQueryStore().getQuery8(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -252,11 +253,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery9 extends CypherListOperationHandler<LdbcQuery9, LdbcQuery9Result> {
+    public static class InteractiveQuery9 extends RedisGraphCypherListOperationHandler<LdbcQuery9, LdbcQuery9Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery9 operation) {
-            return state.getQueryStore().getQuery9(operation);
+            return state.getQueryStore().getQuery9(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -277,11 +278,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery10 extends CypherListOperationHandler<LdbcQuery10, LdbcQuery10Result> {
+    public static class InteractiveQuery10 extends RedisGraphCypherListOperationHandler<LdbcQuery10, LdbcQuery10Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery10 operation) {
-            return state.getQueryStore().getQuery10(operation);
+            return state.getQueryStore().getQuery10(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -302,11 +303,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery11 extends CypherListOperationHandler<LdbcQuery11, LdbcQuery11Result> {
+    public static class InteractiveQuery11 extends RedisGraphCypherListOperationHandler<LdbcQuery11, LdbcQuery11Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery11 operation) {
-            return state.getQueryStore().getQuery11(operation);
+            return state.getQueryStore().getQuery11(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -325,11 +326,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery12 extends CypherListOperationHandler<LdbcQuery12, LdbcQuery12Result> {
+    public static class InteractiveQuery12 extends RedisGraphCypherListOperationHandler<LdbcQuery12, LdbcQuery12Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery12 operation) {
-            return state.getQueryStore().getQuery12(operation);
+            return state.getQueryStore().getQuery12(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -352,11 +353,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery13 extends CypherSingletonOperationHandler<LdbcQuery13, LdbcQuery13Result> {
+    public static class InteractiveQuery13 extends RedisGraphCypherSingletonOperationHandler<LdbcQuery13, LdbcQuery13Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery13 operation) {
-            return state.getQueryStore().getQuery13(operation);
+            return state.getQueryStore().getQuery13(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -365,11 +366,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class InteractiveQuery14 extends CypherListOperationHandler<LdbcQuery14, LdbcQuery14Result> {
+    public static class InteractiveQuery14 extends RedisGraphCypherListOperationHandler<LdbcQuery14, LdbcQuery14Result> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery14 operation) {
-            return state.getQueryStore().getQuery14(operation);
+            return state.getQueryStore().getQuery14(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -389,10 +390,10 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     // Interactive short reads
 
-    public static class ShortQuery1PersonProfile extends CypherSingletonOperationHandler<LdbcShortQuery1PersonProfile, LdbcShortQuery1PersonProfileResult> {
+    public static class ShortQuery1PersonProfile extends RedisGraphCypherSingletonOperationHandler<LdbcShortQuery1PersonProfile, LdbcShortQuery1PersonProfileResult> {
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery1PersonProfile operation) {
-            return state.getQueryStore().getShortQuery1PersonProfile(operation);
+            return state.getQueryStore().getShortQuery1PersonProfile(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -417,11 +418,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class ShortQuery2PersonPosts extends CypherListOperationHandler<LdbcShortQuery2PersonPosts, LdbcShortQuery2PersonPostsResult> {
+    public static class ShortQuery2PersonPosts extends RedisGraphCypherListOperationHandler<LdbcShortQuery2PersonPosts, LdbcShortQuery2PersonPostsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery2PersonPosts operation) {
-            return state.getQueryStore().getShortQuery2PersonPosts(operation);
+            return state.getQueryStore().getShortQuery2PersonPosts(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -444,11 +445,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class ShortQuery3PersonFriends extends CypherListOperationHandler<LdbcShortQuery3PersonFriends, LdbcShortQuery3PersonFriendsResult> {
+    public static class ShortQuery3PersonFriends extends RedisGraphCypherListOperationHandler<LdbcShortQuery3PersonFriends, LdbcShortQuery3PersonFriendsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery3PersonFriends operation) {
-            return state.getQueryStore().getShortQuery3PersonFriends(operation);
+            return state.getQueryStore().getShortQuery3PersonFriends(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -466,11 +467,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class ShortQuery4MessageContent extends CypherSingletonOperationHandler<LdbcShortQuery4MessageContent, LdbcShortQuery4MessageContentResult> {
+    public static class ShortQuery4MessageContent extends RedisGraphCypherSingletonOperationHandler<LdbcShortQuery4MessageContent, LdbcShortQuery4MessageContentResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery4MessageContent operation) {
-            return state.getQueryStore().getShortQuery4MessageContent(operation);
+            return state.getQueryStore().getShortQuery4MessageContent(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -485,11 +486,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class ShortQuery5MessageCreator extends CypherSingletonOperationHandler<LdbcShortQuery5MessageCreator, LdbcShortQuery5MessageCreatorResult> {
+    public static class ShortQuery5MessageCreator extends RedisGraphCypherSingletonOperationHandler<LdbcShortQuery5MessageCreator, LdbcShortQuery5MessageCreatorResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery5MessageCreator operation) {
-            return state.getQueryStore().getShortQuery5MessageCreator(operation);
+            return state.getQueryStore().getShortQuery5MessageCreator(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -504,11 +505,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class ShortQuery6MessageForum extends CypherSingletonOperationHandler<LdbcShortQuery6MessageForum, LdbcShortQuery6MessageForumResult> {
+    public static class ShortQuery6MessageForum extends RedisGraphCypherSingletonOperationHandler<LdbcShortQuery6MessageForum, LdbcShortQuery6MessageForumResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery6MessageForum operation) {
-            return state.getQueryStore().getShortQuery6MessageForum(operation);
+            return state.getQueryStore().getShortQuery6MessageForum(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -527,11 +528,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class ShortQuery7MessageReplies extends CypherListOperationHandler<LdbcShortQuery7MessageReplies, LdbcShortQuery7MessageRepliesResult> {
+    public static class ShortQuery7MessageReplies extends RedisGraphCypherListOperationHandler<LdbcShortQuery7MessageReplies, LdbcShortQuery7MessageRepliesResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcShortQuery7MessageReplies operation) {
-            return state.getQueryStore().getShortQuery7MessageReplies(operation);
+            return state.getQueryStore().getShortQuery7MessageReplies(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -558,77 +559,77 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     // Interactive updates
 
-    public static class Update1AddPerson extends CypherUpdateOperationHandler<LdbcUpdate1AddPerson> {
+    public static class Update1AddPersonRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate1AddPerson> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate1AddPerson operation) {
-            return state.getQueryStore().getUpdate1Single(operation);
+            return state.getQueryStore().getUpdate1Single(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update2AddPostLike extends CypherUpdateOperationHandler<LdbcUpdate2AddPostLike> {
+    public static class Update2AddPostLikeRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate2AddPostLike> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate2AddPostLike operation) {
-            return state.getQueryStore().getUpdate2(operation);
+            return state.getQueryStore().getUpdate2(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update3AddCommentLike extends CypherUpdateOperationHandler<LdbcUpdate3AddCommentLike> {
+    public static class Update3AddCommentLikeRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate3AddCommentLike> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate3AddCommentLike operation) {
-            return state.getQueryStore().getUpdate3(operation);
+            return state.getQueryStore().getUpdate3(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update4AddForum extends CypherUpdateOperationHandler<LdbcUpdate4AddForum> {
+    public static class Update4AddForumRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate4AddForum> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate4AddForum operation) {
-            return state.getQueryStore().getUpdate4Single(operation);
+            return state.getQueryStore().getUpdate4Single(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update5AddForumMembership extends CypherUpdateOperationHandler<LdbcUpdate5AddForumMembership> {
+    public static class Update5AddForumMembershipRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate5AddForumMembership> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate5AddForumMembership operation) {
-            return state.getQueryStore().getUpdate5(operation);
+            return state.getQueryStore().getUpdate5(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update6AddPost extends CypherUpdateOperationHandler<LdbcUpdate6AddPost> {
+    public static class Update6AddPostRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate6AddPost> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate6AddPost operation) {
-            return state.getQueryStore().getUpdate6Single(operation);
+            return state.getQueryStore().getUpdate6Single(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update7AddComment extends CypherUpdateOperationHandler<LdbcUpdate7AddComment> {
+    public static class Update7AddCommentRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate7AddComment> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate7AddComment operation) {
-            return state.getQueryStore().getUpdate7Single(operation);
+            return state.getQueryStore().getUpdate7Single(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
-    public static class Update8AddFriendship extends CypherUpdateOperationHandler<LdbcUpdate8AddFriendship> {
+    public static class Update8AddFriendshipRedisGraph extends RedisGraphCypherUpdateOperationHandler<LdbcUpdate8AddFriendship> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcUpdate8AddFriendship operation) {
-            return state.getQueryStore().getUpdate8(operation);
+            return state.getQueryStore().getUpdate8(operation).replace("\n", " ").replace("\r", " ");
         }
     }
 
     // BI queries
 
-    public static class BiQuery1 extends CypherListOperationHandler<LdbcSnbBiQuery1PostingSummary, LdbcSnbBiQuery1PostingSummaryResult> {
+    public static class BiQuery1 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery1PostingSummary, LdbcSnbBiQuery1PostingSummaryResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery1PostingSummary operation) {
-            return state.getQueryStore().getQuery1(operation);
+            return state.getQueryStore().getQuery1(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -646,11 +647,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery2 extends CypherListOperationHandler<LdbcSnbBiQuery2TopTags, LdbcSnbBiQuery2TopTagsResult> {
+    public static class BiQuery2 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery2TopTags, LdbcSnbBiQuery2TopTagsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery2TopTags operation) {
-            return state.getQueryStore().getQuery2(operation);
+            return state.getQueryStore().getQuery2(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -666,11 +667,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery3 extends CypherListOperationHandler<LdbcSnbBiQuery3TagEvolution, LdbcSnbBiQuery3TagEvolutionResult> {
+    public static class BiQuery3 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery3TagEvolution, LdbcSnbBiQuery3TagEvolutionResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery3TagEvolution operation) {
-            return state.getQueryStore().getQuery3(operation);
+            return state.getQueryStore().getQuery3(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -684,11 +685,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery4 extends CypherListOperationHandler<LdbcSnbBiQuery4PopularCountryTopics, LdbcSnbBiQuery4PopularCountryTopicsResult> {
+    public static class BiQuery4 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery4PopularCountryTopics, LdbcSnbBiQuery4PopularCountryTopicsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery4PopularCountryTopics operation) {
-            return state.getQueryStore().getQuery4(operation);
+            return state.getQueryStore().getQuery4(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -704,11 +705,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery5 extends CypherListOperationHandler<LdbcSnbBiQuery5TopCountryPosters, LdbcSnbBiQuery5TopCountryPostersResult> {
+    public static class BiQuery5 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery5TopCountryPosters, LdbcSnbBiQuery5TopCountryPostersResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery5TopCountryPosters operation) {
-            return state.getQueryStore().getQuery5(operation);
+            return state.getQueryStore().getQuery5(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -724,11 +725,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery6 extends CypherListOperationHandler<LdbcSnbBiQuery6ActivePosters, LdbcSnbBiQuery6ActivePostersResult> {
+    public static class BiQuery6 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery6ActivePosters, LdbcSnbBiQuery6ActivePostersResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery6ActivePosters operation) {
-            return state.getQueryStore().getQuery6(operation);
+            return state.getQueryStore().getQuery6(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -743,11 +744,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery7 extends CypherListOperationHandler<LdbcSnbBiQuery7AuthoritativeUsers, LdbcSnbBiQuery7AuthoritativeUsersResult> {
+    public static class BiQuery7 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery7AuthoritativeUsers, LdbcSnbBiQuery7AuthoritativeUsersResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery7AuthoritativeUsers operation) {
-            return state.getQueryStore().getQuery7(operation);
+            return state.getQueryStore().getQuery7(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -759,11 +760,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery8 extends CypherListOperationHandler<LdbcSnbBiQuery8RelatedTopics, LdbcSnbBiQuery8RelatedTopicsResult> {
+    public static class BiQuery8 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery8RelatedTopics, LdbcSnbBiQuery8RelatedTopicsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery8RelatedTopics operation) {
-            return state.getQueryStore().getQuery8(operation);
+            return state.getQueryStore().getQuery8(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -775,11 +776,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery9 extends CypherListOperationHandler<LdbcSnbBiQuery9RelatedForums, LdbcSnbBiQuery9RelatedForumsResult> {
+    public static class BiQuery9 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery9RelatedForums, LdbcSnbBiQuery9RelatedForumsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery9RelatedForums operation) {
-            return state.getQueryStore().getQuery9(operation);
+            return state.getQueryStore().getQuery9(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -792,11 +793,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery10 extends CypherListOperationHandler<LdbcSnbBiQuery10TagPerson, LdbcSnbBiQuery10TagPersonResult> {
+    public static class BiQuery10 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery10TagPerson, LdbcSnbBiQuery10TagPersonResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery10TagPerson operation) {
-            return state.getQueryStore().getQuery10(operation);
+            return state.getQueryStore().getQuery10(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -809,11 +810,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery11 extends CypherListOperationHandler<LdbcSnbBiQuery11UnrelatedReplies, LdbcSnbBiQuery11UnrelatedRepliesResult> {
+    public static class BiQuery11 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery11UnrelatedReplies, LdbcSnbBiQuery11UnrelatedRepliesResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery11UnrelatedReplies operation) {
-            return state.getQueryStore().getQuery11(operation);
+            return state.getQueryStore().getQuery11(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -827,11 +828,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
     }
 
-    public static class BiQuery12 extends CypherListOperationHandler<LdbcSnbBiQuery12TrendingPosts, LdbcSnbBiQuery12TrendingPostsResult> {
+    public static class BiQuery12 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery12TrendingPosts, LdbcSnbBiQuery12TrendingPostsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery12TrendingPosts operation) {
-            return state.getQueryStore().getQuery12(operation);
+            return state.getQueryStore().getQuery12(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -846,11 +847,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery13 extends CypherListOperationHandler<LdbcSnbBiQuery13PopularMonthlyTags, LdbcSnbBiQuery13PopularMonthlyTagsResult> {
+    public static class BiQuery13 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery13PopularMonthlyTags, LdbcSnbBiQuery13PopularMonthlyTagsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery13PopularMonthlyTags operation) {
-            return state.getQueryStore().getQuery13(operation);
+            return state.getQueryStore().getQuery13(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -871,11 +872,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery14 extends CypherListOperationHandler<LdbcSnbBiQuery14TopThreadInitiators, LdbcSnbBiQuery14TopThreadInitiatorsResult> {
+    public static class BiQuery14 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery14TopThreadInitiators, LdbcSnbBiQuery14TopThreadInitiatorsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery14TopThreadInitiators operation) {
-            return state.getQueryStore().getQuery14(operation);
+            return state.getQueryStore().getQuery14(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -889,11 +890,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery15 extends CypherListOperationHandler<LdbcSnbBiQuery15SocialNormals, LdbcSnbBiQuery15SocialNormalsResult> {
+    public static class BiQuery15 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery15SocialNormals, LdbcSnbBiQuery15SocialNormalsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery15SocialNormals operation) {
-            return state.getQueryStore().getQuery15(operation);
+            return state.getQueryStore().getQuery15(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -904,11 +905,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery16 extends CypherListOperationHandler<LdbcSnbBiQuery16ExpertsInSocialCircle, LdbcSnbBiQuery16ExpertsInSocialCircleResult> {
+    public static class BiQuery16 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery16ExpertsInSocialCircle, LdbcSnbBiQuery16ExpertsInSocialCircleResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery16ExpertsInSocialCircle operation) {
-            return state.getQueryStore().getQuery16(operation);
+            return state.getQueryStore().getQuery16(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -920,11 +921,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery17 extends CypherSingletonOperationHandler<LdbcSnbBiQuery17FriendshipTriangles, LdbcSnbBiQuery17FriendshipTrianglesResult> {
+    public static class BiQuery17 extends RedisGraphCypherSingletonOperationHandler<LdbcSnbBiQuery17FriendshipTriangles, LdbcSnbBiQuery17FriendshipTrianglesResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery17FriendshipTriangles operation) {
-            return state.getQueryStore().getQuery17(operation);
+            return state.getQueryStore().getQuery17(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -934,11 +935,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery18 extends CypherListOperationHandler<LdbcSnbBiQuery18PersonPostCounts, LdbcSnbBiQuery18PersonPostCountsResult> {
+    public static class BiQuery18 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery18PersonPostCounts, LdbcSnbBiQuery18PersonPostCountsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery18PersonPostCounts operation) {
-            return state.getQueryStore().getQuery18(operation);
+            return state.getQueryStore().getQuery18(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -950,11 +951,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
     }
 
 
-    public static class BiQuery19 extends CypherListOperationHandler<LdbcSnbBiQuery19StrangerInteraction, LdbcSnbBiQuery19StrangerInteractionResult> {
+    public static class BiQuery19 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery19StrangerInteraction, LdbcSnbBiQuery19StrangerInteractionResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery19StrangerInteraction operation) {
-            return state.getQueryStore().getQuery19(operation);
+            return state.getQueryStore().getQuery19(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -966,11 +967,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery20 extends CypherListOperationHandler<LdbcSnbBiQuery20HighLevelTopics, LdbcSnbBiQuery20HighLevelTopicsResult> {
+    public static class BiQuery20 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery20HighLevelTopics, LdbcSnbBiQuery20HighLevelTopicsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery20HighLevelTopics operation) {
-            return state.getQueryStore().getQuery20(operation);
+            return state.getQueryStore().getQuery20(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -981,11 +982,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery21 extends CypherListOperationHandler<LdbcSnbBiQuery21Zombies, LdbcSnbBiQuery21ZombiesResult> {
+    public static class BiQuery21 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery21Zombies, LdbcSnbBiQuery21ZombiesResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery21Zombies operation) {
-            return state.getQueryStore().getQuery21(operation);
+            return state.getQueryStore().getQuery21(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -998,11 +999,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery22 extends CypherListOperationHandler<LdbcSnbBiQuery22InternationalDialog, LdbcSnbBiQuery22InternationalDialogResult> {
+    public static class BiQuery22 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery22InternationalDialog, LdbcSnbBiQuery22InternationalDialogResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery22InternationalDialog operation) {
-            return state.getQueryStore().getQuery22(operation);
+            return state.getQueryStore().getQuery22(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -1015,11 +1016,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery23 extends CypherListOperationHandler<LdbcSnbBiQuery23HolidayDestinations, LdbcSnbBiQuery23HolidayDestinationsResult> {
+    public static class BiQuery23 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery23HolidayDestinations, LdbcSnbBiQuery23HolidayDestinationsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery23HolidayDestinations operation) {
-            return state.getQueryStore().getQuery23(operation);
+            return state.getQueryStore().getQuery23(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -1032,11 +1033,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
     }
 
 
-    public static class BiQuery24 extends CypherListOperationHandler<LdbcSnbBiQuery24MessagesByTopic, LdbcSnbBiQuery24MessagesByTopicResult> {
+    public static class BiQuery24 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery24MessagesByTopic, LdbcSnbBiQuery24MessagesByTopicResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery24MessagesByTopic operation) {
-            return state.getQueryStore().getQuery24(operation);
+            return state.getQueryStore().getQuery24(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override
@@ -1050,11 +1051,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         }
     }
 
-    public static class BiQuery25 extends CypherListOperationHandler<LdbcSnbBiQuery25WeightedPaths, LdbcSnbBiQuery25WeightedPathsResult> {
+    public static class BiQuery25 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery25WeightedPaths, LdbcSnbBiQuery25WeightedPathsResult> {
 
         @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery25WeightedPaths operation) {
-            return state.getQueryStore().getQuery25(operation);
+            return state.getQueryStore().getQuery25(operation).replace("\n", " ").replace("\r", " ");
         }
 
         @Override

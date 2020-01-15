@@ -1,7 +1,6 @@
 package com.ldbc.impls.workloads.ldbc.snb.redisgraph.interactive;
 
 import com.ldbc.driver.DbException;
-import com.ldbc.driver.WorkloadException;
 import com.ldbc.driver.control.LoggingService;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.*;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.RedisGraphCypherDb;
@@ -37,14 +36,14 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
         registerOperationHandler(LdbcShortQuery6MessageForum.class, ShortQuery6MessageForum.class);
         registerOperationHandler(LdbcShortQuery7MessageReplies.class, ShortQuery7MessageReplies.class);
 
-        registerOperationHandler(LdbcUpdate1AddPerson.class, Update1AddPerson.class);
-        registerOperationHandler(LdbcUpdate2AddPostLike.class, Update2AddPostLike.class);
-        registerOperationHandler(LdbcUpdate3AddCommentLike.class, Update3AddCommentLike.class);
-        registerOperationHandler(LdbcUpdate4AddForum.class, Update4AddForum.class);
-        registerOperationHandler(LdbcUpdate5AddForumMembership.class, Update5AddForumMembership.class);
-        registerOperationHandler(LdbcUpdate6AddPost.class, Update6AddPost.class);
-        registerOperationHandler(LdbcUpdate7AddComment.class, Update7AddComment.class);
-        registerOperationHandler(LdbcUpdate8AddFriendship.class, Update8AddFriendship.class);
+        registerOperationHandler(LdbcUpdate1AddPerson.class, Update1AddPersonRedisGraph.class);
+        registerOperationHandler(LdbcUpdate2AddPostLike.class, Update2AddPostLikeRedisGraph.class);
+        registerOperationHandler(LdbcUpdate3AddCommentLike.class, Update3AddCommentLikeRedisGraph.class);
+        registerOperationHandler(LdbcUpdate4AddForum.class, Update4AddForumRedisGraph.class);
+        registerOperationHandler(LdbcUpdate5AddForumMembership.class, Update5AddForumMembershipRedisGraph.class);
+        registerOperationHandler(LdbcUpdate6AddPost.class, Update6AddPostRedisGraph.class);
+        registerOperationHandler(LdbcUpdate7AddComment.class, Update7AddCommentRedisGraph.class);
+        registerOperationHandler(LdbcUpdate8AddFriendship.class, Update8AddFriendshipRedisGraph.class);
     }
 
 }
