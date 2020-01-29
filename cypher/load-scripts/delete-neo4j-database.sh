@@ -1,4 +1,7 @@
 #!/bin/bash
 
+source ./../environment-variables-neo4j.sh
+
 $NEO4J_HOME/bin/neo4j stop
-rm -rf $NEO4J_DB_DIR
+echo "removing $NEO4J_HOME/data/"
+rm -rf $NEO4J_HOME/data/
