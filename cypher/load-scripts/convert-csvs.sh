@@ -31,24 +31,6 @@ sed -i.bkp "s#|\([0-9][0-9][0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)|#|\1\2\3|#
 sed -i.bkp "s#|\([0-9][0-9][0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)T\([0-9][0-9]\):\([0-9][0-9]\):\([0-9][0-9]\)\.\([0-9][0-9][0-9]\)+0000#|\1\2\3\4\5\6\7#g" ${NEO4J_DATA_DIR}/dynamic/*${POSTFIX}
 
 
-# add relationship type
-while read line; do
-  IFS=' ' read -r -a array <<< $line
-  filename=${array[0]}
-  relationship=${array[1]}
-  echo "adding relationship of type $relationship to $filename"
-  awk -v relationship="$relationship" 'NR==1 {print $0"|:TYPE"} NR>1 {print $0"|"relationship}' "${NEO4J_DATA_DIR}/${filename}${POSTFIX}" > "${NEO4J_DATA_DIR}/${filename}${POSTFIX}_with_types"
-done < relationships.txt
-
-# add node label
-while read line; do
-  IFS=' ' read -r -a array <<< $line
-  filename=${array[0]}
-  label=${array[1]}
-  echo "adding label $label to $filename"
-  awk -v label="$label" 'NR==1 {print $0"|:LABEL"} NR>1 {print $0"|"label}' "${NEO4J_DATA_DIR}/${filename}${POSTFIX}" > "${NEO4J_DATA_DIR}/${filename}${POSTFIX}_with_labels"
-done < nodes.txt
-
 
 # removing .bkp files
 rm ${NEO4J_DATA_DIR}/*/*.bkp
