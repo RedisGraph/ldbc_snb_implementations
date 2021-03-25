@@ -11,19 +11,19 @@ redisgraph-bulk-loader ${GRAPHNAME} -o \| \
   --enforce-schema \
   --skip-invalid-nodes \
   --skip-invalid-edges \
-  -n ${REDISGRAPH_DATA_DIR}/static/City.csv \
-  -n ${REDISGRAPH_DATA_DIR}/static/Country.csv \
-  -n ${REDISGRAPH_DATA_DIR}/static/Continent.csv \
+  -N City:Place ${REDISGRAPH_DATA_DIR}/static/City.csv \
+  -N Country:Place ${REDISGRAPH_DATA_DIR}/static/Country.csv \
+  -N Continent:Place ${REDISGRAPH_DATA_DIR}/static/Continent.csv \
   -N Place ${REDISGRAPH_DATA_DIR}/static/Place.csv \
-  -n ${REDISGRAPH_DATA_DIR}/static/Company.csv \
-  -N University ${REDISGRAPH_DATA_DIR}/static/University.csv \
+  -N Company:Organisation ${REDISGRAPH_DATA_DIR}/static/Company.csv \
+  -N University:Organisation ${REDISGRAPH_DATA_DIR}/static/University.csv \
   -N Organisation ${REDISGRAPH_DATA_DIR}/static/Organisation.csv \
   -N TagClass ${REDISGRAPH_DATA_DIR}/static/tagclass${POSTFIX} \
   -N Tag ${REDISGRAPH_DATA_DIR}/static/tag${POSTFIX} \
   -N Forum ${REDISGRAPH_DATA_DIR}/dynamic/forum${POSTFIX} \
   -N Person ${REDISGRAPH_DATA_DIR}/dynamic/person${POSTFIX} \
-  -N Message ${REDISGRAPH_DATA_DIR}/dynamic/comment${POSTFIX} \
-  -N Message ${REDISGRAPH_DATA_DIR}/dynamic/post${POSTFIX} \
+  -N Comment:Message ${REDISGRAPH_DATA_DIR}/dynamic/comment${POSTFIX} \
+  -N Post:Message ${REDISGRAPH_DATA_DIR}/dynamic/post${POSTFIX} \
   -R IS_LOCATED_IN ${REDISGRAPH_DATA_DIR}/static/organisation_isLocatedIn_place${POSTFIX} \
   -R IS_PART_OF ${REDISGRAPH_DATA_DIR}/static/place_isPartOf_place${POSTFIX} \
   -R IS_SUBCLASS_OF ${REDISGRAPH_DATA_DIR}/static/tagclass_isSubclassOf_tagclass${POSTFIX} \

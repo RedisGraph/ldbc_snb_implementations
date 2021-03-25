@@ -40,7 +40,7 @@ To load the data:
 
 ```bash
 cd datagen
-SF=0.1 ./import-to-redisgraph.sh
+SF=0.1 ./import-to-redis.sh
 ```
 
 ## Ensuring the results cross-validation
