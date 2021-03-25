@@ -1,0 +1,7 @@
+neo4j-server/
+results/
+neo4j*.tar.gz
+social_network/
+substitution_parameters/
+datagen/SF-*
+*.txt

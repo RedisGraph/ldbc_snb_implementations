@@ -65,6 +65,10 @@
 
     <repositories>
         <repository>
+            <id>localrepository</id>
+            <url>file://${project.basedir}/libs</url>
+        </repository>
+        <repository>
             <id>ldbc</id>
             <name>LDBC SNB</name>
             <url>https://dl.bintray.com/ldbc/snb/</url>
