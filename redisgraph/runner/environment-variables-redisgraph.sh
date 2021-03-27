@@ -9,3 +9,4 @@ PARAMS_FILE=${PARAMS_FILE:-"${CURRENT_DIR}/params-csv-basic-SF${SF}.ini"}
 REDISGRAPH_DATAGEN_DIR=$(dirname $(readlink -e ${REDISGRAPH_DATAGEN_DIR:-"${CURRENT_DIR}/../datagen/SF${SF}/ldbc_snb_datagen/."}))
 #$(readlink -e ../../../../etc/passwd))
 REDISGRAPH_DATA_DIR=${REDISGRAPH_DATA_DIR:-"${REDISGRAPH_DATAGEN_DIR}/social_network"}
+QUERIES_DIR=$(dirname $(readlink -e "${CURRENT_DIR}"))/queries

@@ -18,6 +18,7 @@ public class RedisGraphCypherDbConnectionState extends BaseDbConnectionState<Red
     // general context api. Not bound to graph key or connection
 //    private  graph;
     private String graphId;
+    private String queryDir;
     private String host;
     private Integer port;
     private Integer readTimeout;

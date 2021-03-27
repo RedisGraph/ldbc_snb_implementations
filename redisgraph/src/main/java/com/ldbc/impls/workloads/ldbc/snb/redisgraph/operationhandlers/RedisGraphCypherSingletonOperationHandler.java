@@ -25,6 +25,7 @@ public abstract class RedisGraphCypherSingletonOperationHandler<TOperation exten
             final String graphId = state.getGraphId();
 
             final String queryString = getQueryString(state, operation);
+            System.out.println("STRING SingletonOperationHandler:"+queryString);
             state.logQuery(operation.getClass().getSimpleName(), queryString);
 
 

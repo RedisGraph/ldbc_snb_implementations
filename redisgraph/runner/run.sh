@@ -24,6 +24,7 @@ for run in $(seq ${REPETITIONS}); do
    -p ldbc.snb.interactive.parameters_dir ${REDISGRAPH_DATAGEN_DIR}/ldbc_snb_datagen/substitution_parameters/ \
    -p ldbc.snb.interactive.updates_dir ${REDISGRAPH_DATAGEN_DIR}/ldbc_snb_datagen/social_network/ \
    -p host ${DATABASE_HOST} -p port ${DATABASE_PORT} \
+   -p queryDir ${QUERIES_DIR} \
    2>&1 | tee ~/${OUT_FULL_FILE_NAME}
 
   echo "ended benchmark" >> ~/${OUT_FULL_FILE_NAME}

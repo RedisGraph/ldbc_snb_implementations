@@ -31,6 +31,7 @@ public abstract class RedisGraphCypherListOperationHandler<TOperation extends Op
             int resultCount = 0;
             results.clear();
             final String queryString = getQueryString(state, operation);
+            System.out.println("STRING ListOperationHandler:"+queryString);
             state.logQuery(operation.getClass().getSimpleName(), queryString);
             try {
 

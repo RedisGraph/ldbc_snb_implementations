@@ -18,6 +18,7 @@ public abstract class RedisGraphCypherUpdateOperationHandler<TOperation extends 
         try (RedisGraphContext context = state.getContext()) {
             final String graphId = state.getGraphId();
             final String queryString = getQueryString(state, operation);
+            System.out.println("STRING UpdateOperationHandler:"+queryString);
             state.logQuery(operation.getClass().getSimpleName(), queryString);
             final ResultSet StatementResult = context.query(graphId, queryString);
 
