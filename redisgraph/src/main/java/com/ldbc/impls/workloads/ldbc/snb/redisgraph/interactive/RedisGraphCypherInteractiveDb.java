@@ -13,7 +13,6 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
     protected void onInit(Map<String, String> properties, LoggingService loggingService) throws DbException {
         super.onInit(properties, loggingService);
 
-//        TODO: As soon as we fully support IC enable this
         registerOperationHandler(LdbcQuery1.class, InteractiveQuery1.class);
         registerOperationHandler(LdbcQuery2.class, InteractiveQuery2.class);
         registerOperationHandler(LdbcQuery3.class, InteractiveQuery3.class);
@@ -29,14 +28,12 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
         registerOperationHandler(LdbcQuery13.class, InteractiveQuery13.class);
         registerOperationHandler(LdbcQuery14.class, InteractiveQuery14.class);
 
-
         registerOperationHandler(LdbcShortQuery1PersonProfile.class, ShortQuery1PersonProfile.class);
         registerOperationHandler(LdbcShortQuery2PersonPosts.class, ShortQuery2PersonPosts.class);
         registerOperationHandler(LdbcShortQuery3PersonFriends.class, ShortQuery3PersonFriends.class);
         registerOperationHandler(LdbcShortQuery4MessageContent.class, ShortQuery4MessageContent.class);
         registerOperationHandler(LdbcShortQuery5MessageCreator.class, ShortQuery5MessageCreator.class);
         registerOperationHandler(LdbcShortQuery6MessageForum.class, ShortQuery6MessageForum.class);
-        //          TODO: As soon as we fully support IS enable this
         registerOperationHandler(LdbcShortQuery7MessageReplies.class, ShortQuery7MessageReplies.class);
 
         registerOperationHandler(LdbcUpdate1AddPerson.class, Update1AddPersonRedisGraph.class);
