@@ -40,7 +40,7 @@ public abstract class QueryStore {
         try {
             return new String(Files.readAllBytes(Paths.get(filePath)));
         } catch (IOException e) {
-            //throw new DbException("Could not load query: " + filePath);
+//            throw new DbException("Could not load query: " + filePath);
             return "";
         }
     }
@@ -73,9 +73,9 @@ public abstract class QueryStore {
         InteractiveComplexQuery12("interactive-complex-12"),
         InteractiveComplexQuery13("interactive-complex-13"),
         InteractiveComplexQuery14("interactive-complex-14"),
-        InteractiveComplexQuery3DurationAsFunction ("interactive-complex-3-duration-as-function" ),
-        InteractiveComplexQuery4DurationAsFunction ("interactive-complex-4-duration-as-function" ),
-        InteractiveComplexQuery7WithSecond("interactive-complex-7-with-second"),
+//        InteractiveComplexQuery3DurationAsFunction ("interactive-complex-3-duration-as-function" ),
+//        InteractiveComplexQuery4DurationAsFunction ("interactive-complex-4-duration-as-function" ),
+//        InteractiveComplexQuery7WithSecond("interactive-complex-7-with-second"),
 
         // interactive short queries
         InteractiveShortQuery1("interactive-short-1"),
@@ -217,30 +217,30 @@ public abstract class QueryStore {
                 .put("personId", getConverter().convertId(operation.personId()))
                 .build());
     }
-
-    public String getQuery3DurationAsFunction(LdbcQuery3 operation) {
-        return prepare(QueryType.InteractiveComplexQuery3DurationAsFunction, new ImmutableMap.Builder<String, String>()
-                .put("personId", getConverter().convertId(operation.personId()))
-                .put("countryXName", getConverter().convertString(operation.countryXName()))
-                .put("countryYName", getConverter().convertString(operation.countryYName()))
-                .put("startDate", getConverter().convertDateTime(operation.startDate()))
-                .put("durationDays", getConverter().convertInteger(operation.durationDays()))
-                .build());
-    }
-
-    public String getQuery4DurationAsFunction(LdbcQuery4 operation) {
-        return prepare(QueryType.InteractiveComplexQuery4DurationAsFunction, new ImmutableMap.Builder<String, String>()
-                .put("personId", getConverter().convertId(operation.personId()))
-                .put("startDate", getConverter().convertDateTime(operation.startDate()))
-                .put("durationDays", getConverter().convertInteger(operation.durationDays()))
-                .build());
-    }
-
-    public String getQuery7WithSecond(LdbcQuery7 operation) {
-        return prepare(QueryType.InteractiveComplexQuery7WithSecond, new ImmutableMap.Builder<String, String>()
-                .put("personId", getConverter().convertId(operation.personId()))
-                .build());
-    }
+//
+//    public String getQuery3DurationAsFunction(LdbcQuery3 operation) {
+//        return prepare(QueryType.InteractiveComplexQuery3DurationAsFunction, new ImmutableMap.Builder<String, String>()
+//                .put("personId", getConverter().convertId(operation.personId()))
+//                .put("countryXName", getConverter().convertString(operation.countryXName()))
+//                .put("countryYName", getConverter().convertString(operation.countryYName()))
+//                .put("startDate", getConverter().convertDateTime(operation.startDate()))
+//                .put("durationDays", getConverter().convertInteger(operation.durationDays()))
+//                .build());
+//    }
+//
+//    public String getQuery4DurationAsFunction(LdbcQuery4 operation) {
+//        return prepare(QueryType.InteractiveComplexQuery4DurationAsFunction, new ImmutableMap.Builder<String, String>()
+//                .put("personId", getConverter().convertId(operation.personId()))
+//                .put("startDate", getConverter().convertDateTime(operation.startDate()))
+//                .put("durationDays", getConverter().convertInteger(operation.durationDays()))
+//                .build());
+//    }
+//
+//    public String getQuery7WithSecond(LdbcQuery7 operation) {
+//        return prepare(QueryType.InteractiveComplexQuery7WithSecond, new ImmutableMap.Builder<String, String>()
+//                .put("personId", getConverter().convertId(operation.personId()))
+//                .build());
+//    }
 
     public String getQuery8(LdbcQuery8 operation) {
         return prepare(QueryType.InteractiveComplexQuery8, new ImmutableMap.Builder<String, String>()

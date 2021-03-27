@@ -14,20 +14,20 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
         super.onInit(properties, loggingService);
 
 //        TODO: As soon as we fully support IC enable this
-//        registerOperationHandler(LdbcQuery1.class, InteractiveQuery1.class);
+        registerOperationHandler(LdbcQuery1.class, InteractiveQuery1.class);
         registerOperationHandler(LdbcQuery2.class, InteractiveQuery2.class);
-//        registerOperationHandler(LdbcQuery3.class, InteractiveQuery3.class);
-//        registerOperationHandler(LdbcQuery4.class, InteractiveQuery4.class);
-//        registerOperationHandler(LdbcQuery5.class, InteractiveQuery5.class);
+        registerOperationHandler(LdbcQuery3.class, InteractiveQuery3.class);
+        registerOperationHandler(LdbcQuery4.class, InteractiveQuery4.class);
+        registerOperationHandler(LdbcQuery5.class, InteractiveQuery5.class);
         registerOperationHandler(LdbcQuery6.class, InteractiveQuery6.class);
-//        registerOperationHandler(LdbcQuery7.class, InteractiveQuery7.class);
+        registerOperationHandler(LdbcQuery7.class, InteractiveQuery7.class);
         registerOperationHandler(LdbcQuery8.class, InteractiveQuery8.class);
         registerOperationHandler(LdbcQuery9.class, InteractiveQuery9.class);
-//        registerOperationHandler(LdbcQuery10.class, InteractiveQuery10.class);
+        registerOperationHandler(LdbcQuery10.class, InteractiveQuery10.class);
         registerOperationHandler(LdbcQuery11.class, InteractiveQuery11.class);
         registerOperationHandler(LdbcQuery12.class, InteractiveQuery12.class);
-//        registerOperationHandler(LdbcQuery13.class, InteractiveQuery13.class);
-//        registerOperationHandler(LdbcQuery14.class, InteractiveQuery14.class);
+        registerOperationHandler(LdbcQuery13.class, InteractiveQuery13.class);
+        registerOperationHandler(LdbcQuery14.class, InteractiveQuery14.class);
 
 
         registerOperationHandler(LdbcShortQuery1PersonProfile.class, ShortQuery1PersonProfile.class);
@@ -37,7 +37,7 @@ public class RedisGraphCypherInteractiveDb extends RedisGraphCypherDb {
         registerOperationHandler(LdbcShortQuery5MessageCreator.class, ShortQuery5MessageCreator.class);
         registerOperationHandler(LdbcShortQuery6MessageForum.class, ShortQuery6MessageForum.class);
         //          TODO: As soon as we fully support IS enable this
-//        registerOperationHandler(LdbcShortQuery7MessageReplies.class, ShortQuery7MessageReplies.class);
+        registerOperationHandler(LdbcShortQuery7MessageReplies.class, ShortQuery7MessageReplies.class);
 
         registerOperationHandler(LdbcUpdate1AddPerson.class, Update1AddPersonRedisGraph.class);
         registerOperationHandler(LdbcUpdate2AddPostLike.class, Update2AddPostLikeRedisGraph.class);
