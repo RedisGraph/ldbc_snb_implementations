@@ -6,7 +6,16 @@ For each Scale Factor, the benchmark scripts will perform 3 runs.
 With regards to the test suites detail, the included benchmark helpers, perform 40000 warm-up queries, followed by 123K queries, using 8 benchmark threads and reported as result the median (q50), q95, and  q99.
 The presented latency values are in MICROSECOND scale, and include RTT as time is measured to and from the benchmarking client perspective. 
 
+## Pre-requisites
+To be able to build the driver you need to install the ldbc_snb_driver beforehand.
+Outside the project root folder, do as follows:
+```
+git clone --depth 1 --branch dev https://github.com/ldbc/ldbc_snb_driver && cd ldbc_snb_driver && mvn install -DskipTests && cd ..
+```
+
 ## Building the driver
+
+You can use the `build_redisgraph.sh` script to automate the build.
 ```
 ./build_redisgraph.sh
 ```
@@ -43,26 +52,13 @@ cd datagen
 SF=0.1 ./import-to-redis.sh
 ```
 
-## Ensuring the results cross-validation
-
-To ensure the results cross-validation run the built-in validation scripts for the desired Scale Factor.
-
-```
-./interactive-create-validation-parameters.sh
-./interactive-validate.sh
-```
-
 ## Running the benchmark
-Assuming a RedisGraph instance is available at localhost:6379:
+Assuming a RedisGraph instance is available at localhost:6379, and the data is already loaded.
+Adjust the environment variables present in `runner/environment-variables-redisgraph.sh` to adjust the host, number of workers or more complex properties.
 
-### Interactive Scale Factor 1
-
-```bash
-./interactive-benchmark-SF1.sh
-```
-
-### Interactive Scale Factor 10
+### Interactive Scale Factor 0.1
 
 ```bash
-./interactive-benchmark-SF10.sh
+cd runner
+SF=0.1 ./run.sh
 ```
