@@ -9,29 +9,19 @@
     </parent>
 
     <artifactId>redisgraph</artifactId>
-    <name>RedisGraph Cypher class</name>
-    <description>RedisGraph Cypher implementation for SNB BI driver</description>
+    <name>RedisGraph SNB class</name>
+    <description>RedisGraph Cypher implementation for SNB driver</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <driver.version>0.3.3</driver.version>
-   </properties>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.ldbc.driver</groupId>-->
-<!--            <artifactId>jeeves</artifactId>-->
-<!--            <version>${driver.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.ldbc.snb</groupId>
             <artifactId>common</artifactId>
             <version>0.4.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
-        <dependency>
+      <dependency>
             <groupId>com.redislabs</groupId>
             <artifactId>jredisgraph</artifactId>
-            <version>2.0.0-rc3</version>
+            <version>2.3.0</version>
         </dependency>
     </dependencies>
     <build>
@@ -51,19 +41,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>fully.qualified.MainClass</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
             </plugin>
         </plugins>
     </build>

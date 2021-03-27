@@ -1,25 +1,25 @@
 package com.ldbc.impls.workloads.ldbc.snb.redisgraph;
 
-import com.google.common.primitives.Ints;
 import com.ldbc.driver.DbException;
 import com.ldbc.driver.control.LoggingService;
-import com.ldbc.driver.workloads.ldbc.snb.bi.*;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.*;
+
 import com.ldbc.impls.workloads.ldbc.snb.db.BaseDb;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherListOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherSingletonOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherUpdateOperationHandler;
-import com.redislabs.redisgraph.Record;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import com.redislabs.redisgraph.Record;
+
 
 public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQueryStore> {
 
-    @Override
+
     protected void onInit(Map<String, String> properties, LoggingService loggingService) throws DbException {
         dcs = new RedisGraphCypherDbConnectionState(properties, new RedisGraphCypherQueryStore(properties.get("queryDir")));
     }
@@ -41,7 +41,6 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
     // TODO: support InteractiveQuery1
     public static class InteractiveQuery1 extends RedisGraphCypherListOperationHandler<LdbcQuery1, LdbcQuery1Result> {
 
-        @Override
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery1 operation) {
             return state.getQueryStore().getQuery1(operation).replace("\n", " ").replace("\r", " ");
         }
@@ -121,7 +120,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
      */
     public static class InteractiveQuery2 extends RedisGraphCypherListOperationHandler<LdbcQuery2, LdbcQuery2Result> {
 
-        @Override
+
         public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcQuery2 operation) {
             return state.getQueryStore().getQuery2(operation).replace("\n", " ").replace("\r", " ");
         }
@@ -826,450 +825,450 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
             return state.getQueryStore().getUpdate8(operation).replace("\n", " ").replace("\r", " ");
         }
     }
-
-    // BI queries
-
-    public static class BiQuery1 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery1PostingSummary, LdbcSnbBiQuery1PostingSummaryResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery1PostingSummary operation) {
-            return state.getQueryStore().getQuery1(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery1PostingSummaryResult convertSingleResult(Record record) {
-            int year = Integer.parseInt(record.getString(0));
-            boolean isComment = Boolean.parseBoolean(record.getString(1));
-            int size = Integer.parseInt(record.getString(2));
-            long count = Long.parseLong(record.getString(3));
-            int avgLen = Integer.parseInt(record.getString(4));
-            int total = Integer.parseInt(record.getString(5));
-            double pct = Double.parseDouble(record.getString(6));
-
-            return new LdbcSnbBiQuery1PostingSummaryResult(year, isComment, size, count, avgLen, total, (float) pct);
-        }
-
-    }
-
-    public static class BiQuery2 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery2TopTags, LdbcSnbBiQuery2TopTagsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery2TopTags operation) {
-            return state.getQueryStore().getQuery2(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery2TopTagsResult convertSingleResult(Record record) {
-            String country = record.getString(0);
-            int month = Integer.parseInt(record.getString(1));
-            String gender = record.getString(2);
-            int ageGroup = Integer.parseInt(record.getString(3));
-            String tag = record.getString(4);
-            int count = Integer.parseInt(record.getString(5));
-            return new LdbcSnbBiQuery2TopTagsResult(country, month, gender, ageGroup, tag, count);
-        }
-
-    }
-
-    public static class BiQuery3 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery3TagEvolution, LdbcSnbBiQuery3TagEvolutionResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery3TagEvolution operation) {
-            return state.getQueryStore().getQuery3(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery3TagEvolutionResult convertSingleResult(Record record) {
-            String tagName = record.getString(0);
-            int countA = Integer.parseInt(record.getString(1));
-            int countB = Integer.parseInt(record.getString(2));
-            int diffCount = Integer.parseInt(record.getString(3));
-            return new LdbcSnbBiQuery3TagEvolutionResult(tagName, countA, countB, diffCount);
-        }
-
-    }
-
-    public static class BiQuery4 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery4PopularCountryTopics, LdbcSnbBiQuery4PopularCountryTopicsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery4PopularCountryTopics operation) {
-            return state.getQueryStore().getQuery4(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery4PopularCountryTopicsResult convertSingleResult(Record record) throws ParseException {
-            long forumId = Long.parseLong(record.getString(0));
-            String title = record.getString(1);
-            //TODO: RedisGraph fix me
-            long creationDate = Long.parseLong(record.getString(2)); // CypherConverter.convertLongTimestampToEpoch(record.get(2).asLong());
-            long moderator = Long.parseLong(record.getString(3));
-            int count = Integer.parseInt(record.getString(4));
-            return new LdbcSnbBiQuery4PopularCountryTopicsResult(forumId, title, creationDate, moderator, count);
-        }
-
-    }
-
-    public static class BiQuery5 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery5TopCountryPosters, LdbcSnbBiQuery5TopCountryPostersResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery5TopCountryPosters operation) {
-            return state.getQueryStore().getQuery5(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery5TopCountryPostersResult convertSingleResult(Record record) throws ParseException {
-            long personId = Long.parseLong(record.getString(0));
-            String firstName = record.getString(1);
-            String lastName = record.getString(2);
-            //TODO: RedisGraph fix me
-            long creationDate = Long.parseLong(record.getString(3)); // CypherConverter.convertLongTimestampToEpoch(record.get(3).asLong());
-            int count = Integer.parseInt(record.getString(4));
-            return new LdbcSnbBiQuery5TopCountryPostersResult(personId, firstName, lastName, creationDate, count);
-        }
-
-    }
-
-    public static class BiQuery6 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery6ActivePosters, LdbcSnbBiQuery6ActivePostersResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery6ActivePosters operation) {
-            return state.getQueryStore().getQuery6(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery6ActivePostersResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            int postCount = Integer.parseInt(record.getString(1));
-            int replyCount = Integer.parseInt(record.getString(2));
-            int likeCount = Integer.parseInt(record.getString(3));
-            int score = Integer.parseInt(record.getString(4));
-            return new LdbcSnbBiQuery6ActivePostersResult(personId, postCount, replyCount, likeCount, score);
-        }
-
-    }
-
-    public static class BiQuery7 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery7AuthoritativeUsers, LdbcSnbBiQuery7AuthoritativeUsersResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery7AuthoritativeUsers operation) {
-            return state.getQueryStore().getQuery7(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery7AuthoritativeUsersResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            int score = Integer.parseInt(record.getString(1));
-            return new LdbcSnbBiQuery7AuthoritativeUsersResult(personId, score);
-        }
-
-    }
-
-    public static class BiQuery8 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery8RelatedTopics, LdbcSnbBiQuery8RelatedTopicsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery8RelatedTopics operation) {
-            return state.getQueryStore().getQuery8(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery8RelatedTopicsResult convertSingleResult(Record record) {
-            String tag = record.getString(0);
-            int count = Integer.parseInt(record.getString(1));
-            return new LdbcSnbBiQuery8RelatedTopicsResult(tag, count);
-        }
-
-    }
-
-    public static class BiQuery9 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery9RelatedForums, LdbcSnbBiQuery9RelatedForumsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery9RelatedForums operation) {
-            return state.getQueryStore().getQuery9(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery9RelatedForumsResult convertSingleResult(Record record) {
-            long forumId = Long.parseLong(record.getString(0));
-            int sumA = Integer.parseInt(record.getString(1));
-            int sumB = Integer.parseInt(record.getString(2));
-            return new LdbcSnbBiQuery9RelatedForumsResult(forumId, sumA, sumB);
-        }
-
-    }
-
-    public static class BiQuery10 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery10TagPerson, LdbcSnbBiQuery10TagPersonResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery10TagPerson operation) {
-            return state.getQueryStore().getQuery10(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery10TagPersonResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            int score = Integer.parseInt(record.getString(1));
-            int friendsScore = Integer.parseInt(record.getString(2));
-            return new LdbcSnbBiQuery10TagPersonResult(personId, score, friendsScore);
-        }
-
-    }
-
-    public static class BiQuery11 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery11UnrelatedReplies, LdbcSnbBiQuery11UnrelatedRepliesResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery11UnrelatedReplies operation) {
-            return state.getQueryStore().getQuery11(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery11UnrelatedRepliesResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            String tagName = record.getString(1);
-            int countLikes = Integer.parseInt(record.getString(2));
-            int countReplies = Integer.parseInt(record.getString(3));
-            return new LdbcSnbBiQuery11UnrelatedRepliesResult(personId, tagName, countLikes, countReplies);
-        }
-
-    }
-
-    public static class BiQuery12 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery12TrendingPosts, LdbcSnbBiQuery12TrendingPostsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery12TrendingPosts operation) {
-            return state.getQueryStore().getQuery12(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery12TrendingPostsResult convertSingleResult(Record record) throws ParseException {
-            long personId = Long.parseLong(record.getString(0));
-            //TODO: RedisGraph fix me
-            long creationDate = Long.parseLong(record.getString(1)); // CypherConverter.convertLongTimestampToEpoch(record.get(1).asLong());
-            String firstName = record.getString(2);
-            String lastName = record.getString(3);
-            int likeCount = Integer.parseInt(record.getString(4));
-            return new LdbcSnbBiQuery12TrendingPostsResult(personId, creationDate, firstName, lastName, likeCount);
-        }
-    }
-
-    public static class BiQuery13 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery13PopularMonthlyTags, LdbcSnbBiQuery13PopularMonthlyTagsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery13PopularMonthlyTags operation) {
-            return state.getQueryStore().getQuery13(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery13PopularMonthlyTagsResult convertSingleResult(Record record) {
-            int year = Integer.parseInt(record.getString(0));
-            int month = Integer.parseInt(record.getString(1));
-            //TODO: RedisGraph fix me
-            final List<List<Object>> tagPopularitiesRaw = new ArrayList<>();// record.get(2).asList(Values.ofList());
-
-            final List<LdbcSnbBiQuery13PopularMonthlyTagsResult.TagPopularity> tagPopularities = new ArrayList<>();
-            for (List<Object> tagPopularityRaw : tagPopularitiesRaw) {
-                final String tag = (String) tagPopularityRaw.get(0);
-                final int popularity = Ints.saturatedCast((long) tagPopularityRaw.get(1));
-                tagPopularities.add(new LdbcSnbBiQuery13PopularMonthlyTagsResult.TagPopularity(tag, popularity));
-            }
-
-            return new LdbcSnbBiQuery13PopularMonthlyTagsResult(year, month, tagPopularities);
-        }
-    }
-
-    public static class BiQuery14 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery14TopThreadInitiators, LdbcSnbBiQuery14TopThreadInitiatorsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery14TopThreadInitiators operation) {
-            return state.getQueryStore().getQuery14(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery14TopThreadInitiatorsResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            String firstName = record.getString(1);
-            String lastName = record.getString(2);
-            int count = Integer.parseInt(record.getString(3));
-            int threadCount = Integer.parseInt(record.getString(4));
-            return new LdbcSnbBiQuery14TopThreadInitiatorsResult(personId, firstName, lastName, count, threadCount);
-        }
-    }
-
-    public static class BiQuery15 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery15SocialNormals, LdbcSnbBiQuery15SocialNormalsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery15SocialNormals operation) {
-            return state.getQueryStore().getQuery15(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery15SocialNormalsResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            int count = Integer.parseInt(record.getString(1));
-            return new LdbcSnbBiQuery15SocialNormalsResult(personId, count);
-        }
-    }
-
-    public static class BiQuery16 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery16ExpertsInSocialCircle, LdbcSnbBiQuery16ExpertsInSocialCircleResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery16ExpertsInSocialCircle operation) {
-            return state.getQueryStore().getQuery16(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery16ExpertsInSocialCircleResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            String tag = record.getString(1);
-            int count = Integer.parseInt(record.getString(2));
-            return new LdbcSnbBiQuery16ExpertsInSocialCircleResult(personId, tag, count);
-        }
-    }
-
-    public static class BiQuery17 extends RedisGraphCypherSingletonOperationHandler<LdbcSnbBiQuery17FriendshipTriangles, LdbcSnbBiQuery17FriendshipTrianglesResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery17FriendshipTriangles operation) {
-            return state.getQueryStore().getQuery17(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery17FriendshipTrianglesResult convertSingleResult(Record record) {
-            int count = Integer.parseInt(record.getString(0));
-            return new LdbcSnbBiQuery17FriendshipTrianglesResult(count);
-        }
-    }
-
-    public static class BiQuery18 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery18PersonPostCounts, LdbcSnbBiQuery18PersonPostCountsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery18PersonPostCounts operation) {
-            return state.getQueryStore().getQuery18(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery18PersonPostCountsResult convertSingleResult(Record record) {
-            int postCount = Integer.parseInt(record.getString(0));
-            int count = Integer.parseInt(record.getString(1));
-            return new LdbcSnbBiQuery18PersonPostCountsResult(postCount, count);
-        }
-    }
-
-
-    public static class BiQuery19 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery19StrangerInteraction, LdbcSnbBiQuery19StrangerInteractionResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery19StrangerInteraction operation) {
-            return state.getQueryStore().getQuery19(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery19StrangerInteractionResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            int strangerCount = Integer.parseInt(record.getString(1));
-            int count = Integer.parseInt(record.getString(2));
-            return new LdbcSnbBiQuery19StrangerInteractionResult(personId, strangerCount, count);
-        }
-    }
-
-    public static class BiQuery20 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery20HighLevelTopics, LdbcSnbBiQuery20HighLevelTopicsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery20HighLevelTopics operation) {
-            return state.getQueryStore().getQuery20(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery20HighLevelTopicsResult convertSingleResult(Record record) {
-            String tagClass = record.getString(0);
-            int count = Integer.parseInt(record.getString(1));
-            return new LdbcSnbBiQuery20HighLevelTopicsResult(tagClass, count);
-        }
-    }
-
-    public static class BiQuery21 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery21Zombies, LdbcSnbBiQuery21ZombiesResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery21Zombies operation) {
-            return state.getQueryStore().getQuery21(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery21ZombiesResult convertSingleResult(Record record) {
-            long personId = Long.parseLong(record.getString(0));
-            int zombieCount = Integer.parseInt(record.getString(1));
-            int realCount = Integer.parseInt(record.getString(2));
-            double score = Double.parseDouble(record.getString(3));
-            return new LdbcSnbBiQuery21ZombiesResult(personId, zombieCount, realCount, score);
-        }
-    }
-
-    public static class BiQuery22 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery22InternationalDialog, LdbcSnbBiQuery22InternationalDialogResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery22InternationalDialog operation) {
-            return state.getQueryStore().getQuery22(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery22InternationalDialogResult convertSingleResult(Record record) {
-            long personIdA = Long.parseLong(record.getString(0));
-            long personIdB = Long.parseLong(record.getString(1));
-            String city1Name = record.getString(2);
-            int score = Integer.parseInt(record.getString(3));
-            return new LdbcSnbBiQuery22InternationalDialogResult(personIdA, personIdB, city1Name, score);
-        }
-    }
-
-    public static class BiQuery23 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery23HolidayDestinations, LdbcSnbBiQuery23HolidayDestinationsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery23HolidayDestinations operation) {
-            return state.getQueryStore().getQuery23(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery23HolidayDestinationsResult convertSingleResult(Record record) {
-            int messageCount = Integer.parseInt(record.getString(0));
-            String country = record.getString(1);
-            int month = Integer.parseInt(record.getString(2));
-            return new LdbcSnbBiQuery23HolidayDestinationsResult(messageCount, country, month);
-        }
-    }
-
-
-    public static class BiQuery24 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery24MessagesByTopic, LdbcSnbBiQuery24MessagesByTopicResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery24MessagesByTopic operation) {
-            return state.getQueryStore().getQuery24(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery24MessagesByTopicResult convertSingleResult(Record record) {
-            int messageCount = Integer.parseInt(record.getString(0));
-            int likeCount = Integer.parseInt(record.getString(1));
-            int year = Integer.parseInt(record.getString(2));
-            int month = Integer.parseInt(record.getString(3));
-            String continent = record.getString(4);
-            return new LdbcSnbBiQuery24MessagesByTopicResult(messageCount, likeCount, year, month, continent);
-        }
-    }
-
-    public static class BiQuery25 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery25WeightedPaths, LdbcSnbBiQuery25WeightedPathsResult> {
-
-        @Override
-        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery25WeightedPaths operation) {
-            return state.getQueryStore().getQuery25(operation).replace("\n", " ").replace("\r", " ");
-        }
-
-        @Override
-        public LdbcSnbBiQuery25WeightedPathsResult convertSingleResult(Record record) {
-            //TODO: RedisGraph fix me
-            List<Long> personIds = new ArrayList<>(); //record.get(0).asList(Values.ofLong());
-            double weight = Double.parseDouble(record.getString(1));
-            return new LdbcSnbBiQuery25WeightedPathsResult(personIds, weight);
-        }
-    }
+//
+//    // BI queries
+//
+//    public static class BiQuery1 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery1PostingSummary, LdbcSnbBiQuery1PostingSummaryResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery1PostingSummary operation) {
+//            return state.getQueryStore().getQuery1(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery1PostingSummaryResult convertSingleResult(Record record) {
+//            int year = Integer.parseInt(record.getString(0));
+//            boolean isComment = Boolean.parseBoolean(record.getString(1));
+//            int size = Integer.parseInt(record.getString(2));
+//            long count = Long.parseLong(record.getString(3));
+//            int avgLen = Integer.parseInt(record.getString(4));
+//            int total = Integer.parseInt(record.getString(5));
+//            double pct = Double.parseDouble(record.getString(6));
+//
+//            return new LdbcSnbBiQuery1PostingSummaryResult(year, isComment, size, count, avgLen, total, (float) pct);
+//        }
+//
+//    }
+//
+//    public static class BiQuery2 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery2TopTags, LdbcSnbBiQuery2TopTagsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery2TopTags operation) {
+//            return state.getQueryStore().getQuery2(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery2TopTagsResult convertSingleResult(Record record) {
+//            String country = record.getString(0);
+//            int month = Integer.parseInt(record.getString(1));
+//            String gender = record.getString(2);
+//            int ageGroup = Integer.parseInt(record.getString(3));
+//            String tag = record.getString(4);
+//            int count = Integer.parseInt(record.getString(5));
+//            return new LdbcSnbBiQuery2TopTagsResult(country, month, gender, ageGroup, tag, count);
+//        }
+//
+//    }
+//
+//    public static class BiQuery3 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery3TagEvolution, LdbcSnbBiQuery3TagEvolutionResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery3TagEvolution operation) {
+//            return state.getQueryStore().getQuery3(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery3TagEvolutionResult convertSingleResult(Record record) {
+//            String tagName = record.getString(0);
+//            int countA = Integer.parseInt(record.getString(1));
+//            int countB = Integer.parseInt(record.getString(2));
+//            int diffCount = Integer.parseInt(record.getString(3));
+//            return new LdbcSnbBiQuery3TagEvolutionResult(tagName, countA, countB, diffCount);
+//        }
+//
+//    }
+//
+//    public static class BiQuery4 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery4PopularCountryTopics, LdbcSnbBiQuery4PopularCountryTopicsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery4PopularCountryTopics operation) {
+//            return state.getQueryStore().getQuery4(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery4PopularCountryTopicsResult convertSingleResult(Record record) throws ParseException {
+//            long forumId = Long.parseLong(record.getString(0));
+//            String title = record.getString(1);
+//            //TODO: RedisGraph fix me
+//            long creationDate = Long.parseLong(record.getString(2)); // CypherConverter.convertLongTimestampToEpoch(record.get(2).asLong());
+//            long moderator = Long.parseLong(record.getString(3));
+//            int count = Integer.parseInt(record.getString(4));
+//            return new LdbcSnbBiQuery4PopularCountryTopicsResult(forumId, title, creationDate, moderator, count);
+//        }
+//
+//    }
+//
+//    public static class BiQuery5 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery5TopCountryPosters, LdbcSnbBiQuery5TopCountryPostersResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery5TopCountryPosters operation) {
+//            return state.getQueryStore().getQuery5(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery5TopCountryPostersResult convertSingleResult(Record record) throws ParseException {
+//            long personId = Long.parseLong(record.getString(0));
+//            String firstName = record.getString(1);
+//            String lastName = record.getString(2);
+//            //TODO: RedisGraph fix me
+//            long creationDate = Long.parseLong(record.getString(3)); // CypherConverter.convertLongTimestampToEpoch(record.get(3).asLong());
+//            int count = Integer.parseInt(record.getString(4));
+//            return new LdbcSnbBiQuery5TopCountryPostersResult(personId, firstName, lastName, creationDate, count);
+//        }
+//
+//    }
+//
+//    public static class BiQuery6 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery6ActivePosters, LdbcSnbBiQuery6ActivePostersResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery6ActivePosters operation) {
+//            return state.getQueryStore().getQuery6(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery6ActivePostersResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            int postCount = Integer.parseInt(record.getString(1));
+//            int replyCount = Integer.parseInt(record.getString(2));
+//            int likeCount = Integer.parseInt(record.getString(3));
+//            int score = Integer.parseInt(record.getString(4));
+//            return new LdbcSnbBiQuery6ActivePostersResult(personId, postCount, replyCount, likeCount, score);
+//        }
+//
+//    }
+//
+//    public static class BiQuery7 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery7AuthoritativeUsers, LdbcSnbBiQuery7AuthoritativeUsersResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery7AuthoritativeUsers operation) {
+//            return state.getQueryStore().getQuery7(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery7AuthoritativeUsersResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            int score = Integer.parseInt(record.getString(1));
+//            return new LdbcSnbBiQuery7AuthoritativeUsersResult(personId, score);
+//        }
+//
+//    }
+//
+//    public static class BiQuery8 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery8RelatedTopics, LdbcSnbBiQuery8RelatedTopicsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery8RelatedTopics operation) {
+//            return state.getQueryStore().getQuery8(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery8RelatedTopicsResult convertSingleResult(Record record) {
+//            String tag = record.getString(0);
+//            int count = Integer.parseInt(record.getString(1));
+//            return new LdbcSnbBiQuery8RelatedTopicsResult(tag, count);
+//        }
+//
+//    }
+//
+//    public static class BiQuery9 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery9RelatedForums, LdbcSnbBiQuery9RelatedForumsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery9RelatedForums operation) {
+//            return state.getQueryStore().getQuery9(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery9RelatedForumsResult convertSingleResult(Record record) {
+//            long forumId = Long.parseLong(record.getString(0));
+//            int sumA = Integer.parseInt(record.getString(1));
+//            int sumB = Integer.parseInt(record.getString(2));
+//            return new LdbcSnbBiQuery9RelatedForumsResult(forumId, sumA, sumB);
+//        }
+//
+//    }
+//
+//    public static class BiQuery10 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery10TagPerson, LdbcSnbBiQuery10TagPersonResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery10TagPerson operation) {
+//            return state.getQueryStore().getQuery10(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery10TagPersonResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            int score = Integer.parseInt(record.getString(1));
+//            int friendsScore = Integer.parseInt(record.getString(2));
+//            return new LdbcSnbBiQuery10TagPersonResult(personId, score, friendsScore);
+//        }
+//
+//    }
+//
+//    public static class BiQuery11 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery11UnrelatedReplies, LdbcSnbBiQuery11UnrelatedRepliesResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery11UnrelatedReplies operation) {
+//            return state.getQueryStore().getQuery11(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery11UnrelatedRepliesResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            String tagName = record.getString(1);
+//            int countLikes = Integer.parseInt(record.getString(2));
+//            int countReplies = Integer.parseInt(record.getString(3));
+//            return new LdbcSnbBiQuery11UnrelatedRepliesResult(personId, tagName, countLikes, countReplies);
+//        }
+//
+//    }
+//
+//    public static class BiQuery12 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery12TrendingPosts, LdbcSnbBiQuery12TrendingPostsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery12TrendingPosts operation) {
+//            return state.getQueryStore().getQuery12(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery12TrendingPostsResult convertSingleResult(Record record) throws ParseException {
+//            long personId = Long.parseLong(record.getString(0));
+//            //TODO: RedisGraph fix me
+//            long creationDate = Long.parseLong(record.getString(1)); // CypherConverter.convertLongTimestampToEpoch(record.get(1).asLong());
+//            String firstName = record.getString(2);
+//            String lastName = record.getString(3);
+//            int likeCount = Integer.parseInt(record.getString(4));
+//            return new LdbcSnbBiQuery12TrendingPostsResult(personId, creationDate, firstName, lastName, likeCount);
+//        }
+//    }
+//
+//    public static class BiQuery13 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery13PopularMonthlyTags, LdbcSnbBiQuery13PopularMonthlyTagsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery13PopularMonthlyTags operation) {
+//            return state.getQueryStore().getQuery13(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery13PopularMonthlyTagsResult convertSingleResult(Record record) {
+//            int year = Integer.parseInt(record.getString(0));
+//            int month = Integer.parseInt(record.getString(1));
+//            //TODO: RedisGraph fix me
+//            final List<List<Object>> tagPopularitiesRaw = new ArrayList<>();// record.get(2).asList(Values.ofList());
+//
+//            final List<LdbcSnbBiQuery13PopularMonthlyTagsResult.TagPopularity> tagPopularities = new ArrayList<>();
+//            for (List<Object> tagPopularityRaw : tagPopularitiesRaw) {
+//                final String tag = (String) tagPopularityRaw.get(0);
+//                final int popularity = Ints.saturatedCast((long) tagPopularityRaw.get(1));
+//                tagPopularities.add(new LdbcSnbBiQuery13PopularMonthlyTagsResult.TagPopularity(tag, popularity));
+//            }
+//
+//            return new LdbcSnbBiQuery13PopularMonthlyTagsResult(year, month, tagPopularities);
+//        }
+//    }
+//
+//    public static class BiQuery14 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery14TopThreadInitiators, LdbcSnbBiQuery14TopThreadInitiatorsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery14TopThreadInitiators operation) {
+//            return state.getQueryStore().getQuery14(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery14TopThreadInitiatorsResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            String firstName = record.getString(1);
+//            String lastName = record.getString(2);
+//            int count = Integer.parseInt(record.getString(3));
+//            int threadCount = Integer.parseInt(record.getString(4));
+//            return new LdbcSnbBiQuery14TopThreadInitiatorsResult(personId, firstName, lastName, count, threadCount);
+//        }
+//    }
+//
+//    public static class BiQuery15 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery15SocialNormals, LdbcSnbBiQuery15SocialNormalsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery15SocialNormals operation) {
+//            return state.getQueryStore().getQuery15(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery15SocialNormalsResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            int count = Integer.parseInt(record.getString(1));
+//            return new LdbcSnbBiQuery15SocialNormalsResult(personId, count);
+//        }
+//    }
+//
+//    public static class BiQuery16 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery16ExpertsInSocialCircle, LdbcSnbBiQuery16ExpertsInSocialCircleResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery16ExpertsInSocialCircle operation) {
+//            return state.getQueryStore().getQuery16(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery16ExpertsInSocialCircleResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            String tag = record.getString(1);
+//            int count = Integer.parseInt(record.getString(2));
+//            return new LdbcSnbBiQuery16ExpertsInSocialCircleResult(personId, tag, count);
+//        }
+//    }
+//
+//    public static class BiQuery17 extends RedisGraphCypherSingletonOperationHandler<LdbcSnbBiQuery17FriendshipTriangles, LdbcSnbBiQuery17FriendshipTrianglesResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery17FriendshipTriangles operation) {
+//            return state.getQueryStore().getQuery17(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery17FriendshipTrianglesResult convertSingleResult(Record record) {
+//            int count = Integer.parseInt(record.getString(0));
+//            return new LdbcSnbBiQuery17FriendshipTrianglesResult(count);
+//        }
+//    }
+//
+//    public static class BiQuery18 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery18PersonPostCounts, LdbcSnbBiQuery18PersonPostCountsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery18PersonPostCounts operation) {
+//            return state.getQueryStore().getQuery18(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery18PersonPostCountsResult convertSingleResult(Record record) {
+//            int postCount = Integer.parseInt(record.getString(0));
+//            int count = Integer.parseInt(record.getString(1));
+//            return new LdbcSnbBiQuery18PersonPostCountsResult(postCount, count);
+//        }
+//    }
+//
+//
+//    public static class BiQuery19 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery19StrangerInteraction, LdbcSnbBiQuery19StrangerInteractionResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery19StrangerInteraction operation) {
+//            return state.getQueryStore().getQuery19(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery19StrangerInteractionResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            int strangerCount = Integer.parseInt(record.getString(1));
+//            int count = Integer.parseInt(record.getString(2));
+//            return new LdbcSnbBiQuery19StrangerInteractionResult(personId, strangerCount, count);
+//        }
+//    }
+//
+//    public static class BiQuery20 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery20HighLevelTopics, LdbcSnbBiQuery20HighLevelTopicsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery20HighLevelTopics operation) {
+//            return state.getQueryStore().getQuery20(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery20HighLevelTopicsResult convertSingleResult(Record record) {
+//            String tagClass = record.getString(0);
+//            int count = Integer.parseInt(record.getString(1));
+//            return new LdbcSnbBiQuery20HighLevelTopicsResult(tagClass, count);
+//        }
+//    }
+//
+//    public static class BiQuery21 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery21Zombies, LdbcSnbBiQuery21ZombiesResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery21Zombies operation) {
+//            return state.getQueryStore().getQuery21(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery21ZombiesResult convertSingleResult(Record record) {
+//            long personId = Long.parseLong(record.getString(0));
+//            int zombieCount = Integer.parseInt(record.getString(1));
+//            int realCount = Integer.parseInt(record.getString(2));
+//            double score = Double.parseDouble(record.getString(3));
+//            return new LdbcSnbBiQuery21ZombiesResult(personId, zombieCount, realCount, score);
+//        }
+//    }
+//
+//    public static class BiQuery22 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery22InternationalDialog, LdbcSnbBiQuery22InternationalDialogResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery22InternationalDialog operation) {
+//            return state.getQueryStore().getQuery22(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery22InternationalDialogResult convertSingleResult(Record record) {
+//            long personIdA = Long.parseLong(record.getString(0));
+//            long personIdB = Long.parseLong(record.getString(1));
+//            String city1Name = record.getString(2);
+//            int score = Integer.parseInt(record.getString(3));
+//            return new LdbcSnbBiQuery22InternationalDialogResult(personIdA, personIdB, city1Name, score);
+//        }
+//    }
+//
+//    public static class BiQuery23 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery23HolidayDestinations, LdbcSnbBiQuery23HolidayDestinationsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery23HolidayDestinations operation) {
+//            return state.getQueryStore().getQuery23(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery23HolidayDestinationsResult convertSingleResult(Record record) {
+//            int messageCount = Integer.parseInt(record.getString(0));
+//            String country = record.getString(1);
+//            int month = Integer.parseInt(record.getString(2));
+//            return new LdbcSnbBiQuery23HolidayDestinationsResult(messageCount, country, month);
+//        }
+//    }
+//
+//
+//    public static class BiQuery24 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery24MessagesByTopic, LdbcSnbBiQuery24MessagesByTopicResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery24MessagesByTopic operation) {
+//            return state.getQueryStore().getQuery24(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery24MessagesByTopicResult convertSingleResult(Record record) {
+//            int messageCount = Integer.parseInt(record.getString(0));
+//            int likeCount = Integer.parseInt(record.getString(1));
+//            int year = Integer.parseInt(record.getString(2));
+//            int month = Integer.parseInt(record.getString(3));
+//            String continent = record.getString(4);
+//            return new LdbcSnbBiQuery24MessagesByTopicResult(messageCount, likeCount, year, month, continent);
+//        }
+//    }
+//
+//    public static class BiQuery25 extends RedisGraphCypherListOperationHandler<LdbcSnbBiQuery25WeightedPaths, LdbcSnbBiQuery25WeightedPathsResult> {
+//
+//        @Override
+//        public String getQueryString(RedisGraphCypherDbConnectionState state, LdbcSnbBiQuery25WeightedPaths operation) {
+//            return state.getQueryStore().getQuery25(operation).replace("\n", " ").replace("\r", " ");
+//        }
+//
+//        @Override
+//        public LdbcSnbBiQuery25WeightedPathsResult convertSingleResult(Record record) {
+//            //TODO: RedisGraph fix me
+//            List<Long> personIds = new ArrayList<>(); //record.get(0).asList(Values.ofLong());
+//            double weight = Double.parseDouble(record.getString(1));
+//            return new LdbcSnbBiQuery25WeightedPathsResult(personIds, weight);
+//        }
+//    }
 
 
 }
