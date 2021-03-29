@@ -5,3 +5,4 @@ social_network/
 substitution_parameters/
 datagen/SF-*
 *.txt
+!headers.txt
