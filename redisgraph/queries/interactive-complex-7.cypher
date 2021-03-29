@@ -5,6 +5,7 @@ WITH
   liker,
   head(collect({msg: message, likeTime: likeTime})) AS latestLike,
   person
+OPTIONAL MATCH (liker)-[isOld:KNOWS]-(person)
 RETURN
   liker.id AS personId,
   liker.firstName AS personFirstName,
@@ -16,6 +17,6 @@ RETURN
     ELSE latestLike.msg.imageFile
     END AS messageContent,
   latestLike.msg.creationDate AS messageCreationDate,
-  NOT((liker)-[:KNOWS]-(person)) AS isNew
+  isOld NOT NULL AS isNew
   ORDER BY likeCreationDate DESC, toInteger(personId) ASC
   LIMIT 20

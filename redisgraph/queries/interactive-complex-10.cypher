@@ -6,12 +6,13 @@ MATCH (person:Person {id: $personId})-[:KNOWS*2..2]-(friend:Person)-[:IS_LOCATED
   AND NOT((friend)-[:KNOWS]-(person))
 WITH DISTINCT friend, city, person
 OPTIONAL MATCH (friend)<-[:HAS_CREATOR]-(post:Post)
-WITH friend, city, collect(post) AS posts, person
+OPTIONAL MATCH (post)-[:HAS_TAG]->(commonPost:Tag)<-[:HAS_INTEREST]-(person)
+WITH friend, city, collect(post) AS posts, person, count(commonPost) AS commonPostCount
 WITH
   friend,
   city,
   length(posts) AS postCount,
-  length([p IN posts WHERE (p)-[:HAS_TAG]->(:Tag)<-[:HAS_INTEREST]-(person)]) AS commonPostCount
+  commonPostCount
 RETURN
   friend.id AS personId,
   friend.firstName AS personFirstName,
