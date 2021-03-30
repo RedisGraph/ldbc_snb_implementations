@@ -58,6 +58,9 @@ redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Comment(id)" >> ./redisgrap
 redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Forum(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
 redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Organisation(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
 redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Person(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
+redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :City(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
+redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Country(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
+redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Continent(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
 redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Place(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
 redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Post(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
 redis-cli GRAPH.QUERY ${GRAPHNAME} "CREATE INDEX ON :Tag(id)" >> ./redisgraph-load-${GRAPHNAME}-SF_${SF}.txt
