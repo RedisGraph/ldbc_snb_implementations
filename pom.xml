@@ -19,6 +19,7 @@
         <module>common</module>
         <module>cypher</module>
         <module>postgres</module>
+        <module>redisgraph</module>
     </modules>
 
     <build>
@@ -64,6 +65,10 @@
     </build>
 
     <repositories>
+        <repository>
+            <id>localrepository</id>
+            <url>file://${project.basedir}/libs</url>
+        </repository>
         <repository>
             <id>ldbc</id>
             <name>LDBC SNB</name>
