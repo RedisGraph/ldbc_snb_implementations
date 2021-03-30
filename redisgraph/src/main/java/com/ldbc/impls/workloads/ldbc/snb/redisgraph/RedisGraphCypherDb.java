@@ -3,18 +3,17 @@ package com.ldbc.impls.workloads.ldbc.snb.redisgraph;
 import com.ldbc.driver.DbException;
 import com.ldbc.driver.control.LoggingService;
 import com.ldbc.driver.workloads.ldbc.snb.interactive.*;
-
 import com.ldbc.impls.workloads.ldbc.snb.db.BaseDb;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherListOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherSingletonOperationHandler;
 import com.ldbc.impls.workloads.ldbc.snb.redisgraph.operationhandlers.RedisGraphCypherUpdateOperationHandler;
+import com.redislabs.redisgraph.Record;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import com.redislabs.redisgraph.Record;
 
 
 public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQueryStore> {
@@ -47,44 +46,25 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
         @Override
         public LdbcQuery1Result convertSingleResult(Record record) throws ParseException {
-            // TODO: RedisGraph fix me
             List<String> emails = new ArrayList<>();
-//            if (!Objects.isNull(record.getValue(8))) {
-//                record.getValue(8)
-//                for (int pos = 0; pos < record.size(); pos++){
-//                    emails.add( record.getString(pos));
-//                }
-//                for (Object inObj : record.values()) {
-//                    inObj.toString()
-//                    out.add(f.apply(inObj));
-//                }
-//
-//                emails = record.getValue(8).asList((e) -> e.asString());
-//            }
+            if (!Objects.isNull(record.getValue(8))) {
+                List<Object> records = record.getValue(8);
+            }
 
             List<String> languages = new ArrayList<>();
-//            if (!Objects.isNull(record.getValue(9))) {
-//                languages = record.getValue(9).asList((e) -> e.asString());
-//            } else {
-//                languages = new ArrayList<>();
-//            }
-//          // TODO: RedisGraph fix me
+            if (!Objects.isNull(record.getValue(9))) {
+                List<Object> records = record.getValue(9);
+
+            }
             List<List<Object>> universities = new ArrayList<>();
-//            if (!Objects.isNull(record.getValue(11))) {
-//                universities = record.getValue(11).asList((e) ->
-//                        e.asList());
-//            } else {
-//                universities = new ArrayList<>();
-//            }
-            // TODO: RedisGraph fix me
+            if (!Objects.isNull(record.getValue(11))) {
+                List<Object> records = record.getValue(11);
+
+            }
             List<List<Object>> companies = new ArrayList<>();
-//            if (!Objects.isNull(record.getValue(12))) {
-//                companies = record.getValue(12).asList((e) ->
-//                        e.asList());
-//            } else {
-//                companies = new ArrayList<>();
-//            }
-//
+            if (!Objects.isNull(record.getValue(12))) {
+                List<Object> records = record.getValue(12);
+            }
             long friendId = Long.parseLong(record.getString(0));
             String friendLastName = record.getValue(1);
             int distanceFromPerson = record.getValue(2);
@@ -549,7 +529,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
             String browserUsed = record.getString(4);
             int cityId = record.getValue(5);
             String gender = record.getValue(6);
-            int creationDate =record.getValue(7);
+            int creationDate = record.getValue(7);
             return new LdbcShortQuery1PersonProfileResult(
                     firstName,
                     lastName,
@@ -579,11 +559,11 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
         @Override
         public LdbcShortQuery2PersonPostsResult convertSingleResult(Record record) throws ParseException {
-            int messageId =  record.getValue(0);
+            int messageId = record.getValue(0);
             String messageContent = record.getString(1);
-            int messageCreationDate =  record.getValue(2);
-            int originalPostId =  record.getValue(3);
-            int originalPostAuthorId =  record.getValue(4);
+            int messageCreationDate = record.getValue(2);
+            int originalPostId = record.getValue(3);
+            int originalPostAuthorId = record.getValue(4);
             String originalPostAuthorFirstName = record.getString(5);
             String originalPostAuthorLastName = record.getString(6);
             return new LdbcShortQuery2PersonPostsResult(
@@ -611,7 +591,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
         @Override
         public LdbcShortQuery3PersonFriendsResult convertSingleResult(Record record) throws ParseException {
-            int personId =  record.getValue(0);
+            int personId = record.getValue(0);
             String firstName = record.getString(1);
             String lastName = record.getString(2);
             int friendshipCreationDate = record.getValue(3);
@@ -638,7 +618,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
         @Override
         public LdbcShortQuery4MessageContentResult convertSingleResult(Record record) throws ParseException {
             // Pay attention, the spec's and the implementation's parameter orders are different.
-            int messageCreationDate =  record.getValue(0);
+            int messageCreationDate = record.getValue(0);
             String messageContent = record.getString(1);
             return new LdbcShortQuery4MessageContentResult(
                     messageContent,
@@ -658,7 +638,7 @@ public abstract class RedisGraphCypherDb extends BaseDb<RedisGraphCypherQuerySto
 
         @Override
         public LdbcShortQuery5MessageCreatorResult convertSingleResult(Record record) {
-            int personId =  record.getValue(0);
+            int personId = record.getValue(0);
             String firstName = record.getString(1);
             String lastName = record.getString(2);
             return new LdbcShortQuery5MessageCreatorResult(
