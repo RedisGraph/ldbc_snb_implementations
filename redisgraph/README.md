@@ -62,3 +62,24 @@ Adjust the environment variables present in `runner/environment-variables-redisg
 cd runner
 SF=0.1 ./run.sh
 ```
+
+## Validating the benchmark
+
+A benchmark should be published with a deterministically reproducible validation dataset.
+Validation queries applied to the validation dataset will deterministically produce a set of correct answers. 
+This is used in the first stage of benchmark run to test for the correctness of an SUT or benchmark implementation. 
+This validation stage is not timed.
+
+**Inputs for validation:** 
+The validation takes the form of a set of data generator parameters, a set of test queriesthat at least include one instance of each of the workload query templates and the expected results.
+
+Local validation:
+It is possible to (1) create validation parameters, (2) validate against an existing validation parameters.
+Set the parameters according to your system configuration in the appropriate `.properties`  file or by using the environment variables present in `environment-variables-redisgraph.sh`.
+
+```bash
+# Interactive workload - note that if the workload contains updates, the database needs to be re-loaded between steps
+cd redisgraph/runner
+.interactive-create-validation-parameters.sh
+.interactive-validate.sh
+```

@@ -19,7 +19,7 @@ OUT_FULL_FILE_NAME="${RESULTS_DIR}/interactive-create-validate_out.txt"
 
 java -classpath "$TARGET/redisgraph-0.4.0-SNAPSHOT.jar" \
  com.ldbc.driver.Client -dm EXECUTE_WORKLOAD -P interactive-create-validation-parameters.properties \
-  -p thread_count ${CLIENTS} \
+  -p thread_count 1 \
  -p ldbc.snb.interactive.parameters_dir ${REDISGRAPH_DATAGEN_DIR}/ldbc_snb_datagen/substitution_parameters/ \
  -p ldbc.snb.interactive.updates_dir ${REDISGRAPH_DATAGEN_DIR}/ldbc_snb_datagen/social_network/ \
  -p host ${DATABASE_HOST} -p port ${DATABASE_PORT} \
